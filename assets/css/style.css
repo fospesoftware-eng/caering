@@ -532,64 +532,42 @@ body.is-loaded .hero__title {
 }
 .strip__inner span { color: var(--gold-2); font-size: .8rem; }
 
-/* ---------------- technology ---------------- */
-.tech__grid {
-  display: grid;
-  grid-template-columns: 1.05fr .95fr;
-  gap: clamp(40px, 6vw, 96px);
-  align-items: center;
-}
-.tech__visual {
+/* ---------------- technology : exploded assembly ---------------- */
+.techx {
   position: relative;
-  border-radius: 26px; overflow: hidden;
-  box-shadow: var(--shadow);
-  transform-style: preserve-3d;
+  min-height: 100vh;
+  overflow: hidden;
+  color: #f6f6f8;
+  background:
+    radial-gradient(1200px 720px at 50% 36%, #181820 0%, #0f0f13 52%, #0b0b0d 100%);
+}
+.techx__img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+.techx__content { position: absolute; inset: 0; }
+.techx__title {
+  position: absolute; top: 9%; left: 0;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(2.1rem, 4vw, 3.55rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: #f7f7f9;
+}
+.techx__title em { font-style: normal; }
+.techx__note {
+  position: absolute; bottom: 11%; right: 0;
+  max-width: 320px;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: #8e8e98;
 }
 [data-parallax-img] { transform: translateZ(0); }
-.tech__visual img { width: 100%; transition: transform 1.2s var(--ease-out); }
-.tech__visual:hover img { transform: scale(1.04); }
-.tech__visual-glow {
-  position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(420px 320px at var(--mx, 50%) var(--my, 30%), var(--accent-soft), transparent 70%);
-}
-.hotspot { position: absolute; left: var(--x); top: var(--y); z-index: 2; }
-.hotspot i {
-  position: absolute; left: 0; top: 0; width: 14px; height: 14px;
-  border-radius: 50%; background: var(--gold-sheen);
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 0 5px var(--accent-soft), 0 0 18px var(--gold-2);
-}
-.hotspot i::after {
-  content: ""; position: absolute; inset: -9px; border-radius: 50%;
-  border: 1px solid var(--gold-2);
-  animation: hsPing 2.4s ease-out infinite;
-}
-@keyframes hsPing { from { transform: scale(.6); opacity: 1; } to { transform: scale(1.9); opacity: 0; } }
-.hotspot b {
-  position: absolute; left: 16px; top: -10px; white-space: nowrap;
-  font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
-  padding: 5px 11px; border-radius: 100px;
-  background: var(--chip-bg); backdrop-filter: blur(12px);
-  border: 1px solid var(--line);
-}
-.hs--b { left: auto !important; right: 16px !important; }
 
-.tech__list { counter-reset: t; display: flex; flex-direction: column; }
-.tech__item {
-  display: flex; gap: 26px;
-  padding: 28px 0;
-  border-top: 1px solid var(--line);
-  transition: padding-left .5s var(--ease-out);
-}
-.tech__item:last-child { border-bottom: 1px solid var(--line); }
-.tech__item:hover { padding-left: 10px; }
-.tech__num {
-  font-family: var(--font-display); font-style: italic;
-  font-size: 1.05rem; color: var(--gold-3);
-  padding-top: 4px; flex: none;
-}
-.tech__item h3 { font-size: 1.25rem; font-weight: 500; margin-bottom: 7px; letter-spacing: -.01em; }
-.tech__item p { color: var(--ink-soft); font-size: .97rem; max-width: 440px; }
 
 /* ---------------- wellbeing pillars ---------------- */
 .wellbeing { background: linear-gradient(180deg, transparent, var(--accent-soft) 18%, transparent 82%); }
@@ -1067,7 +1045,6 @@ body.is-loaded .hero__title {
 
 /* ---------------- responsive ---------------- */
 @media (max-width: 1080px) {
-  .tech__grid { grid-template-columns: 1fr; }
   .finishes__layout { grid-template-columns: 1fr; }
   .stories__grid { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
   .story--feature { transform: none; }
@@ -1090,6 +1067,10 @@ body.is-loaded .hero__title {
   .craft__visual { position: relative; width: 100%; height: 56vh; }
   .craft__visual::after { background: linear-gradient(180deg, transparent 60%, var(--bg-1)); }
   .specs { grid-template-columns: 1fr; }
+  .techx { min-height: 640px; }
+  .techx__img { object-fit: contain; object-position: center 58%; }
+  .techx__title { top: 15%; font-size: clamp(1.9rem, 8vw, 2.6rem); }
+  .techx__note { bottom: 6%; max-width: 240px; font-size: .82rem; }
 }
 
 @media (max-width: 520px) {

@@ -175,7 +175,7 @@ let heroViewer = null, finishViewer = null;
 
 async function initViewers() {
   try {
-    const { createRingViewer, createDuneHero } = await import('./ring3d.js?v=20260927');
+    const { createRingViewer, createDuneHero } = await import('./ring3d.js?v=20260927b');
 
     const heroCanvas = $('#heroRing');
     if (heroCanvas) {

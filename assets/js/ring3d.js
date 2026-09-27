@@ -890,3 +890,406 @@ export function createDuneHero(canvas, options = {}) {
 
   return { setParallax, setTheme, resize, dispose };
 }
+
+/* =============================================================
+   createTechExploded — Technology section
+   Exploded assembly built around the exact CAERING ring:
+   glass shells · outer shell arc · flex PCB · the ring itself
+   (buildRealRing, unchanged) · battery cell · chip stack ·
+   inner chassis — floating in a dark void with a distant ridge.
+   ============================================================= */
+export function createTechExploded(canvas, options = {}) {
+  let width = canvas.clientWidth || 1200;
+  let height = canvas.clientHeight || 800;
+  let isMobile = width < 860;
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas, antialias: true, alpha: true,
+    powerPreference: 'high-performance',
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(width, height, false);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.12;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(isMobile ? 40 : 30, width / height, 0.1, 100);
+  const CAM_Z = () => (isMobile ? 15.2 : 12.4);
+  camera.position.set(0, 0.35, CAM_Z());
+
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  pmrem.dispose();
+
+  /* lights */
+  const key = new THREE.DirectionalLight(0xffffff, 2.1);
+  key.position.set(5, 6, 5);
+  scene.add(key);
+  const rimL = new THREE.DirectionalLight(0x8fb4e0, 1.25);
+  rimL.position.set(-6, 2.5, -4);
+  scene.add(rimL);
+  const fill = new THREE.DirectionalLight(0xfff0d8, 0.55);
+  fill.position.set(-3, -3, 4);
+  scene.add(fill);
+
+  const asm = new THREE.Group();
+  asm.rotation.x = 1.85;                       // common tilt for every ring
+  scene.add(asm);
+
+  /* ---------------- textures ---------------- */
+  function ridgeTexture() {
+    const W = 2048, H = 900;
+    const c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    const x = c.getContext('2d');
+    const ridge = (baseY, amp, color, step) => {
+      x.fillStyle = color;
+      x.beginPath(); x.moveTo(0, H); x.lineTo(0, baseY);
+      let y = baseY;
+      for (let px = 0; px <= W; px += step) {
+        y += (Math.random() - 0.5) * amp;
+        y = Math.min(baseY + amp * 1.4, Math.max(baseY - amp * 1.9, y));
+        x.lineTo(px, y);
+      }
+      x.lineTo(W, H); x.closePath(); x.fill();
+    };
+    ridge(H * 0.68, 78, 'rgba(25,25,31,0.7)', 62);
+    ridge(H * 0.76, 60, 'rgba(18,18,23,0.9)', 48);
+    ridge(H * 0.86, 46, 'rgba(10,10,13,1)', 34);
+    const g = x.createLinearGradient(0, H * 0.62, 0, H * 0.8);
+    g.addColorStop(0, 'rgba(130,130,150,0)');
+    g.addColorStop(0.5, 'rgba(130,130,150,0.03)');
+    g.addColorStop(1, 'rgba(130,130,150,0)');
+    x.fillStyle = g; x.fillRect(0, H * 0.58, W, H * 0.3);
+    const tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }
+  function flexTexture() {
+    const W = 1024, H = 256;
+    const c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    const x = c.getContext('2d');
+    const g = x.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#1a3b67'); g.addColorStop(0.5, '#12294a'); g.addColorStop(1, '#0c1e38');
+    x.fillStyle = g; x.fillRect(0, 0, W, H);
+    x.lineCap = 'round';
+    for (let i = 0; i < 16; i++) {
+      x.strokeStyle = 'rgba(86,138,200,0.55)';
+      x.lineWidth = 2;
+      const y = 24 + Math.random() * (H - 48);
+      x.beginPath(); x.moveTo(10, y);
+      let px = 10;
+      while (px < W - 60) {
+        const nx = px + 60 + Math.random() * 120;
+        if (Math.random() > 0.5) x.lineTo(nx, y);
+        else { x.lineTo(px + 26, y); x.lineTo(px + 26, y + (Math.random() > 0.5 ? 22 : -22)); x.lineTo(nx, y + (Math.random() > 0.5 ? 22 : -22)); }
+        px = nx;
+      }
+      x.lineTo(W - 10, y); x.stroke();
+    }
+    for (let i = 0; i < 26; i++) {
+      x.fillStyle = '#caa24e';
+      const px = 30 + Math.random() * (W - 60), py = 18 + Math.random() * (H - 36);
+      x.fillRect(px, py, 10, 10);
+    }
+    for (let i = 0; i < 4; i++) {
+      const px = 120 + i * 230, py = 70 + (i % 2) * 60;
+      x.fillStyle = '#0a0d13'; x.fillRect(px, py, 74, 48);
+      x.fillStyle = 'rgba(255,255,255,0.5)';
+      x.font = '9px sans-serif';
+      x.fillText('MCU', px + 8, py + 16);
+    }
+    const tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 8;
+    return tex;
+  }
+  function chipTexture() {
+    const S = 512;
+    const c = document.createElement('canvas');
+    c.width = c.height = S;
+    const x = c.getContext('2d');
+    x.fillStyle = '#13251d'; x.fillRect(0, 0, S, S);
+    x.strokeStyle = 'rgba(90,180,140,0.4)'; x.lineWidth = 3;
+    for (let i = 0; i < 9; i++) {
+      x.beginPath(); x.moveTo(20, 60 + i * 44); x.lineTo(S - 20, 60 + i * 44); x.stroke();
+    }
+    const pad = (px, py) => { x.fillStyle = '#caa24e'; x.fillRect(px, py, 26, 14); };
+    for (let i = 0; i < 11; i++) { pad(40 + i * 40, 8); pad(40 + i * 40, S - 22); pad(8, 40 + i * 40); pad(S - 34, 40 + i * 40); }
+    x.fillStyle = '#0a0d11';
+    x.beginPath(); x.roundRect(166, 166, 180, 180, 14); x.fill();
+    x.fillStyle = 'rgba(255,255,255,0.35)';
+    x.font = '16px sans-serif'; x.textAlign = 'center';
+    x.fillText('SENSOR', S / 2, 240);
+    const tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 8;
+    return tex;
+  }
+  function chassisTexture() {
+    const W = 2048, H = 512;
+    const c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    const x = c.getContext('2d');
+    // band base with feathered top/bottom edges
+    x.beginPath(); x.roundRect(0, 44, W, H - 88, 26); x.fillStyle = '#c9cbd1'; x.fill();
+    const g = x.createLinearGradient(0, 44, 0, H - 44);
+    g.addColorStop(0, '#e3e5ea'); g.addColorStop(0.45, '#c2c4ca'); g.addColorStop(1, '#8f9198');
+    x.fillStyle = g; x.fill();
+    x.globalAlpha = 0.08;
+    for (let i = 0; i < 300; i++) {
+      x.strokeStyle = i % 2 ? '#fff' : '#000';
+      const y = 50 + Math.random() * (H - 100);
+      x.beginPath(); x.moveTo(0, y); x.lineTo(W, y); x.stroke();
+    }
+    x.globalAlpha = 1;
+    // rectangular slots — two rows (destination-out)
+    x.globalCompositeOperation = 'destination-out';
+    const rows = [150, 362];
+    rows.forEach((ry, r) => {
+      for (let i = 0; i < 16; i++) {
+        const px = i * 128 + (r ? 64 : 0) + 30;
+        x.beginPath(); x.roundRect(px, ry - 52, 74, 104, 10); x.fill();
+      }
+    });
+    x.globalCompositeOperation = 'source-over';
+    const tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 8;
+    return tex;
+  }
+
+  /* ---------------- distant ridge ---------------- */
+  const backdrop = new THREE.Mesh(
+    new THREE.PlaneGeometry(44, 19),
+    new THREE.MeshBasicMaterial({ map: ridgeTexture(), transparent: true, depthWrite: false })
+  );
+  backdrop.position.set(0, -3.2, -6);
+  scene.add(backdrop);
+
+  /* ---------------- component builders ---------------- */
+  const glassMat = new THREE.MeshPhysicalMaterial({
+    color: 0xdce6ee, metalness: 0, roughness: 0.04,
+    transmission: 0.92, thickness: 0.04, ior: 1.45,
+    transparent: true, opacity: 0.42,
+    envMapIntensity: 2.3, clearcoat: 1, clearcoatRoughness: 0.05,
+    side: THREE.DoubleSide, depthWrite: false,
+  });
+  const thinBand = (radius, radial, axH) => {
+    const p = [
+      new THREE.Vector2(radius - radial, -axH / 2),
+      new THREE.Vector2(radius, -axH / 2),
+      new THREE.Vector2(radius, axH / 2),
+      new THREE.Vector2(radius - radial, axH / 2),
+    ];
+    return new THREE.Mesh(new THREE.LatheGeometry(p, 128), glassMat);
+  };
+
+  const shellMat = new THREE.MeshPhysicalMaterial({
+    color: 0x131318, metalness: 0.5, roughness: 0.24,
+    clearcoat: 1, clearcoatRoughness: 0.1, envMapIntensity: 1.5,
+    side: THREE.DoubleSide,
+  });
+  const flexMat = new THREE.MeshStandardMaterial({
+    map: flexTexture(), roughness: 0.55, metalness: 0.25,
+    side: THREE.DoubleSide, envMapIntensity: 0.8,
+  });
+  const batteryMat = new THREE.MeshPhysicalMaterial({
+    color: 0x101014, metalness: 0.35, roughness: 0.42,
+    clearcoat: 0.6, clearcoatRoughness: 0.2,
+  });
+  const chipMat = new THREE.MeshStandardMaterial({
+    map: chipTexture(), roughness: 0.5, metalness: 0.3,
+  });
+  const chassisMat = new THREE.MeshStandardMaterial({
+    map: chassisTexture(), metalness: 1, roughness: 0.3,
+    transparent: true, alphaTest: 0.35,
+    side: THREE.DoubleSide, envMapIntensity: 1.4,
+  });
+
+  function makeGlassPair() {
+    const g = new THREE.Group();
+    const a = thinBand(Ro, 0.035, 0.13);
+    const b = thinBand(Ro - 0.07, 0.03, 0.11);
+    a.rotation.y = 0.3; b.rotation.y = -0.5;
+    b.position.y = 0.14;
+    g.add(a, b);
+    return g;
+  }
+  function makeShell() {
+    return new THREE.Mesh(
+      new THREE.CylinderGeometry(Ro - 0.02, Ro - 0.02, BH * 0.9, 80, 1, true, 1.0, 3.4),
+      shellMat
+    );
+  }
+  function makeFlex() {
+    return new THREE.Mesh(
+      new THREE.CylinderGeometry(1.22, 1.22, 0.56, 96, 1, true, 0.3, 2.7),
+      flexMat
+    );
+  }
+  function makeBattery() {
+    const g = new THREE.Group();
+    const cell = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.9, 0.62, 80), batteryMat);
+    g.add(cell);
+    const ringMat = new THREE.MeshStandardMaterial({ color: 0x2c2c33, metalness: 0.8, roughness: 0.3 });
+    [0.31, -0.31].forEach((y) => {
+      const t = new THREE.Mesh(new THREE.TorusGeometry(0.9, 0.018, 12, 80), ringMat);
+      t.rotation.x = Math.PI / 2; t.position.y = y;
+      g.add(t);
+    });
+    return g;
+  }
+  function makeChips() {
+    const g = new THREE.Group();
+    const strip = new THREE.Mesh(
+      new THREE.BoxGeometry(0.3, 1.35, 0.03),
+      new THREE.MeshStandardMaterial({ color: 0x111116, metalness: 0.6, roughness: 0.4 })
+    );
+    g.add(strip);
+    [-0.42, 0, 0.42].forEach((y, i) => {
+      const board = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.34, 0.05), chipMat);
+      board.position.set(0, y, 0.03);
+      board.rotation.z = (i - 1) * 0.07;
+      g.add(board);
+    });
+    return g;
+  }
+  function makeChassis() {
+    return new THREE.Mesh(
+      new THREE.CylinderGeometry(1.12, 1.12, 0.68, 128, 1, true, 0.4, 4.2),
+      chassisMat
+    );
+  }
+
+  /* ---------------- assembly layout ----------------
+     slot = desktop x position; pieces nest at CAERING radii
+     when "assembled" (glass/shell Ro · flex mid · battery/
+     chips/chassis inside Ri). */
+  const realRing = buildRealRing();
+  realRing.sparkMat.opacity = 0;            // no ambient dust here
+
+  const defs = [
+    { obj: makeGlassPair(), slot: -4.25, y: -0.02, s: 0.95, jx: 0.08, jy: 0.22, jz: -0.12, d: -1 },
+    { obj: makeShell(),     slot: -2.75, y: 0.36,  s: 1.0,  jx: 0,    jy: 0.3,  jz: -0.18, d: 1 },
+    { obj: makeFlex(),      slot: -1.35, y: -0.3,  s: 1.0,  jx: 0.18, jy: -0.2, jz: 0.28,  d: -1 },
+    { obj: realRing.group,  slot: 0.15,  y: 0.06,  s: 1.04, jx: 0,    jy: 0.5,  jz: 0.04,  d: 1 },
+    { obj: makeBattery(),   slot: 1.55,  y: 0.3,   s: 0.98, jx: 0.05, jy: 1.0,  jz: -0.1,  d: -1 },
+    { obj: makeChips(),     slot: 2.85,  y: 0.1,   s: 1.0,  jx: 0,    jy: -0.18, jz: -0.12, d: 1 },
+    { obj: makeChassis(),   slot: 4.2,   y: 0.18,  s: 1.02, jx: 0,    jy: 0.7,  jz: 0.12,  d: -1 },
+  ];
+
+  const holders = defs.map((d, i) => {
+    const h = new THREE.Group();
+    h.add(d.obj);
+    h.rotation.set(d.jx, d.jy, d.jz);
+    h.userData = {
+      slot: d.slot, baseY: d.y, scale: d.s, dir: d.d,
+      phase: Math.random() * Math.PI * 2,
+      freq: 0.5 + Math.random() * 0.5,
+      delay: i * 0.07,
+    };
+    asm.add(h);
+    return h;
+  });
+
+  function layout() {
+    const aspect = width / height;
+    const spread = THREE.MathUtils.clamp(0.5 + aspect * 0.31, 0.62, 1.05);
+    const yComp = isMobile ? 0.72 : 1.0;
+    holders.forEach((h) => {
+      const u = h.userData;
+      h.userData._spread = spread;
+      h.position.x = u.slot * spread;
+      h.userData._layY = u.baseY * yComp;
+    });
+    camera.fov = isMobile ? 40 : 30;
+    camera.updateProjectionMatrix();
+  }
+  layout();
+
+  /* ---------------- state ---------------- */
+  const pointer = { x: 0, y: 0 };
+  const target = { px: 0, py: 0 };
+  let intro = 0;
+  let visible = false;
+  let started = false;
+
+  function onPointerMove(e) {
+    const rect = canvas.getBoundingClientRect();
+    pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    pointer.y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+  }
+  canvas.addEventListener('pointermove', onPointerMove);
+
+  function resize() {
+    width = canvas.clientWidth || width;
+    height = canvas.clientHeight || height;
+    isMobile = width < 860;
+    renderer.setSize(width, height, false);
+    camera.aspect = width / height;
+    layout();
+  }
+  const ro = new ResizeObserver(resize);
+  ro.observe(canvas);
+
+  const io = new IntersectionObserver((entries) => {
+    visible = entries[0].isIntersecting;
+    if (visible && !started) { started = true; }
+    if (visible) clock.start();
+  }, { threshold: 0.12 });
+  io.observe(canvas);
+
+  const clock = new THREE.Clock();
+
+  function tick() {
+    requestAnimationFrame(tick);
+    if (!visible) return;
+    const dt = Math.min(clock.getDelta(), 0.05);
+    const t = clock.elapsedTime;
+
+    if (started && intro < 1) intro = Math.min(1, intro + dt / 1.5);
+
+    const ease = (x) => 1 - Math.pow(1 - x, 3);
+    holders.forEach((h) => {
+      const u = h.userData;
+      const ip = started ? ease(Math.max(0, Math.min(1, (intro - u.delay) / (1 - u.delay)))) : 0;
+      h.position.x = u.slot * (isMobile ? 0.6 : 1.0) * (1 + 0.55 * (1 - ip));
+      const layY = u._layY;
+      const bob = Math.sin(t * u.freq + u.phase) * 0.045;
+      h.position.y = layY + bob + u.dir * 0.85 * (1 - ip);
+      h.scale.setScalar(u.scale * (0.62 + 0.38 * ip));
+      h.rotation.z += Math.sin(t * 0.3 + u.phase) * 0.0006;
+    });
+
+    target.px += (pointer.x - target.px) * 0.05;
+    target.py += (pointer.y - target.py) * 0.05;
+    camera.position.x += (target.px * 0.55 - camera.position.x) * 0.04;
+    camera.position.y += ((isMobile ? 0.3 : 0.35) - target.py * 0.3 - camera.position.y) * 0.04;
+    camera.position.z += (CAM_Z() - camera.position.z) * 0.04;
+    asm.rotation.y = target.px * 0.07;
+    camera.lookAt(0, 0.1, 0);
+
+    renderer.render(scene, camera);
+  }
+  tick();
+
+  function setParallax(nx, ny) { pointer.x = nx; pointer.y = ny; }
+
+  function dispose() {
+    ro.disconnect(); io.disconnect();
+    canvas.removeEventListener('pointermove', onPointerMove);
+    scene.traverse((o) => {
+      if (o.geometry) o.geometry.dispose();
+      if (o.material) {
+        const mats = Array.isArray(o.material) ? o.material : [o.material];
+        mats.forEach((m) => m.dispose());
+      }
+    });
+    renderer.dispose();
+  }
+
+  return { setParallax, resize, dispose };
+}
