@@ -194,44 +194,52 @@ em { font-style: italic; }
 .preloader {
   position: fixed; inset: 0; z-index: 300;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 26px;
+  gap: 22px;
   background:
     radial-gradient(900px 600px at 50% 30%, var(--bg-3), transparent 70%),
     var(--bg-1);
   transition: opacity .9s var(--ease-out), visibility .9s;
 }
 .preloader.is-done { opacity: 0; visibility: hidden; }
+
+/* The preloader uses the authoritative CAERING logo assets — the shape is
+   pixel-identical to the brand mark at every frame. A rotating conic mask
+   reveals the C-ring along its arc; the heart sitting in the gap appears
+   only as the circle completes. */
+@property --preSweep {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
 .preloader__mark { width: 150px; }
-.preloader__logo { width: 100%; height: auto; display: block; }
-[data-theme="dark"] .preloader__logo { filter: invert(1); }
-.preloader-svg { width: 100%; height: 100%; overflow: visible; }
-.pre-ring {
-  stroke: url(#g); stroke: var(--gold-2);
-  stroke-dasharray: 199 239;
-  transform: rotate(30deg); transform-origin: 50% 50%;
-  stroke-dashoffset: 240;
-  animation: preDraw 1.9s var(--ease-silk) forwards;
+.preloader__markimg {
+  display: block; width: 100%; height: auto;
+  --preSweep: 0deg;
+  -webkit-mask-image: conic-gradient(from 106deg,
+    #000 0deg calc(var(--preSweep) - 10deg),
+    rgba(0,0,0,0) var(--preSweep));
+  mask-image: conic-gradient(from 106deg,
+    #000 0deg calc(var(--preSweep) - 10deg),
+    rgba(0,0,0,0) var(--preSweep));
+  -webkit-mask-position: 48.3% 49.8%;
+  mask-position: 48.3% 49.8%;
+  animation: preDraw 1.7s var(--ease-silk) forwards;
 }
-.pre-heart {
-  fill: var(--gold-2);
-  transform-origin: 50% 50%;
+.preloader__wordimg {
+  display: block; width: 150px; height: auto;
   opacity: 0;
-  animation: preHeart .6s var(--ease-out) .9s forwards, heartBeat 1.4s ease-in-out 1.5s infinite;
+  animation: fadeUp .8s var(--ease-out) 1.25s forwards;
 }
-@keyframes preDraw { to { stroke-dashoffset: 0; } }
-@keyframes preHeart { to { opacity: 1; } }
-@keyframes heartBeat {
-  0%, 100% { transform: scale(1); }
-  14% { transform: scale(1.22); }
-  28% { transform: scale(1); }
-  42% { transform: scale(1.14); }
-}
-.preloader__word {
-  font-size: 13px; letter-spacing: .62em; text-indent: .62em;
-  color: var(--ink-soft); font-weight: 500;
-  opacity: 0; animation: fadeUp .8s var(--ease-out) 1.1s forwards;
-}
+/* black assets on cream become white on the dark preloader */
+[data-theme="dark"] .preloader__markimg,
+[data-theme="dark"] .preloader__wordimg { filter: invert(1); }
+@keyframes preDraw { to { --preSweep: 360deg; } }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader__markimg { --preSweep: 360deg; animation: none; }
+  .preloader__wordimg { opacity: 1; animation: none; }
+}
 
 /* ---------------- custom cursor ---------------- */
 .cursor, .cursor-dot {
