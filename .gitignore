@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# Replit local state (configuration files above are intentionally committed)
+.replit.local
+.upm/
+*.log
+
+# misc
+Thumbs.db
+tmp/

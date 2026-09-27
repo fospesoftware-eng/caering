@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAERING — We'll take care. Always.</title>
+  <meta name="description" content="CAERING is a beautifully crafted health ring that quietly watches over your sleep, pulse, stress and temperature. A daily wellness companion — no screens, no noise, no judgment." />
+  <meta name="theme-color" content="#f4efe6" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/style.css?v=20260927b" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='38' fill='none' stroke='%23b8893a' stroke-width='9' stroke-dasharray='182 57' transform='rotate(43 50 50)'/%3E%3Cpath d='M85 57C79.5 52.5 78 50 78 48.3 78 46.2 79.8 45 81.5 45c1.5 0 2.7.8 3.5 2.1.8-1.3 2-2.1 3.5-2.1 1.7 0 3.5 1.2 3.5 3.3 0 1.7-1.5 4.2-7 8.7z' fill='%23b8893a'/%3E%3C/svg%3E" />
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ============ PRELOADER ============ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__mark">
+      <svg class="preloader-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#d8b56a"/>
+            <stop offset="55%" stop-color="#c9a154"/>
+            <stop offset="100%" stop-color="#8a5f20"/>
+          </linearGradient>
+        </defs>
+        <circle class="pre-ring" cx="50" cy="50" r="38" stroke-width="2.4" stroke-linecap="round"/>
+        <path class="pre-heart" d="M50 62.5C43.5 55.5 35.5 50.5 35.5 43.2C35.5 38.2 39.6 35 43.8 35C46.9 35 49 37 50 39.6C51 37 53.1 35 56.2 35C60.4 35 64.5 38.2 64.5 43.2C64.5 50.5 56.5 55.5 50 62.5Z"/>
+      </svg>
+    </div>
+    <div class="preloader__word">CAERING</div>
+  </div>
+
+  <!-- ambient background washes -->
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient__blob ambient__blob--1"></div>
+    <div class="ambient__blob ambient__blob--2"></div>
+    <div class="ambient__grain"></div>
+  </div>
+
+  <!-- custom cursor -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="#top" class="brand" aria-label="CAERING home" data-magnetic>
+        <img class="brand__mark" src="assets/images/caering-mark.png" alt="" />
+        <img class="brand__word" src="assets/images/caering-word.png" alt="CAERING" />
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="#technology" class="nav__link">Technology</a>
+        <a href="#wellbeing" class="nav__link">Well-being</a>
+        <a href="#finishes" class="nav__link">Finishes</a>
+        <a href="#app" class="nav__link">The App</a>
+      </nav>
+
+      <div class="header__actions">
+        <a href="#reserve" class="btn btn--gold header__cta" data-magnetic data-sound="tick">
+          <span>Reserve</span>
+          <svg viewBox="0 0 24 24" class="ic-arrow" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <button class="icon-btn header__burger" id="burger" aria-label="Open menu">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="header__progress"><span id="scrollProgress"></span></div>
+  </header>
+
+  <!-- mobile nav drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <nav class="drawer__nav">
+      <a href="#technology" class="drawer__link">Technology</a>
+      <a href="#wellbeing" class="drawer__link">Well-being</a>
+      <a href="#finishes" class="drawer__link">Finishes</a>
+      <a href="#app" class="drawer__link">The App</a>
+      <a href="#reserve" class="drawer__link drawer__link--cta">Reserve yours</a>
+    </nav>
+  </div>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <h1 class="hero__title" id="heroTitle">
+        <span class="hero__word hero__word--take">TAKE CARE</span>
+        <span class="hero__word hero__word--always">ALWAYS</span>
+      </h1>
+      <canvas id="heroRing" class="hero__canvas" aria-label="CAERING ring rising over golden sand dunes"></canvas>
+      <div class="hero__fallback" aria-hidden="true"></div>
+    </section>
+
+    <!-- ============ STATEMENT STRIP ============ -->
+    <section class="strip">
+      <div class="strip__inner">
+        <p>Care without controlling</p><span>✦</span>
+        <p>Inform without overwhelming</p><span>✦</span>
+        <p>Support without judging</p>
+      </div>
+    </section>
+
+    <!-- ============ TECHNOLOGY ============ -->
+    <section class="section tech" id="technology">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow reveal" data-reveal><span class="eyebrow__dot"></span> Technology</p>
+          <h2 class="h2 reveal" data-reveal>Powerful technology,<br /><em>quietly within.</em></h2>
+        </div>
+
+        <div class="tech__grid">
+          <div class="tech__visual reveal" data-reveal data-parallax-img>
+            <img src="assets/images/ring-product.jpg" alt="CAERING ring showing precision sensors inside the band" loading="lazy" />
+            <span class="hotspot" style="--x:38%;--y:30%"><i></i><b class="hs--a">PPG optics</b></span>
+            <span class="hotspot" style="--x:62%;--y:58%"><i></i><b class="hs--b">Temperature</b></span>
+            <span class="hotspot" style="--x:47%;--y:74%"><i></i><b class="hs--c">Motion unit</b></span>
+            <div class="tech__visual-glow"></div>
+          </div>
+
+          <ol class="tech__list">
+            <li class="tech__item reveal" data-reveal>
+              <span class="tech__num">01</span>
+              <div>
+                <h3>Optical PPG sensors</h3>
+                <p>Twin infrared and red-light channels read pulse and blood flow with medical-grade precision — even in deep sleep.</p>
+              </div>
+            </li>
+            <li class="tech__item reveal" data-reveal>
+              <span class="tech__num">02</span>
+              <div>
+                <h3>Skin temperature sensing</h3>
+                <p>A contact thermistor tracks nightly variation as small as a fraction of a degree — often before you feel anything.</p>
+              </div>
+            </li>
+            <li class="tech__item reveal" data-reveal>
+              <span class="tech__num">03</span>
+              <div>
+                <h3>3-axis motion intelligence</h3>
+                <p>A low-power accelerometer distinguishes restlessness, deep stillness and sleep stages through the night.</p>
+              </div>
+            </li>
+            <li class="tech__item reveal" data-reveal>
+              <span class="tech__num">04</span>
+              <div>
+                <h3>Private on-ring processing</h3>
+                <p>Signals are processed on the device and synced on your terms. Your body's data belongs to you alone.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WELL-BEING PILLARS ============ -->
+    <section class="section wellbeing" id="wellbeing">
+      <div class="container">
+        <div class="section__head section__head--center">
+          <p class="eyebrow reveal" data-reveal><span class="eyebrow__dot"></span> Everyday well-being</p>
+          <h2 class="h2 reveal" data-reveal>Four quiet signals.<br /><em>One clear picture.</em></h2>
+        </div>
+
+        <div class="pillars reveal" data-reveal>
+          <div class="pillars__tabs" role="tablist">
+            <button class="ptab is-active" role="tab" data-tab="sleep" data-sound="soft">
+              <svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4 6.5 6.5 0 0 0 20 14.5z" fill="currentColor"/></svg>
+              Sleep
+            </button>
+            <button class="ptab" role="tab" data-tab="pulse" data-sound="soft">
+              <svg viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 4 12L16 12h5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Pulse
+            </button>
+            <button class="ptab" role="tab" data-tab="stress" data-sound="soft">
+              <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9.2-8.3C1.2 9 2.6 5.5 6 5.5c2 0 3.2 1.2 4 2.3.8-1.1 2-2.3 4-2.3 3.4 0 4.8 3.5 3.2 6.2C19 15.6 12 20 12 20z" fill="currentColor"/></svg>
+              Stress
+            </button>
+            <button class="ptab" role="tab" data-tab="temp" data-sound="soft">
+              <svg viewBox="0 0 24 24"><path d="M14 14.8V5a2 2 0 1 0-4 0v9.8a4 4 0 1 0 4 0z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              Temperature
+            </button>
+          </div>
+
+          <div class="pillars__stage">
+            <div class="ppanel is-active" data-panel="sleep">
+              <div class="ppanel__chart"><canvas id="chartSleep"></canvas></div>
+              <div class="ppanel__info">
+                <span class="ppanel__kicker">Sleep reveals true recovery</span>
+                <div class="ppanel__metrics">
+                  <div><b class="count" data-count="7.8" data-decimals="1">0</b><i>hours last night</i></div>
+                  <div><b class="count" data-count="92">0</b><i>recovery score</i></div>
+                </div>
+                <p class="ppanel__note">“You slept deeply. Your body feels balanced today — let's take it easy.”</p>
+              </div>
+            </div>
+            <div class="ppanel" data-panel="pulse">
+              <div class="ppanel__chart"><canvas id="chartPulse"></canvas></div>
+              <div class="ppanel__info">
+                <span class="ppanel__kicker">A calm heart, day and night</span>
+                <div class="ppanel__metrics">
+                  <div><b class="count" data-count="62">0</b><i>resting bpm</i></div>
+                  <div><b class="count" data-count="118">0</b><i>daytime peak</i></div>
+                </div>
+                <p class="ppanel__note">“Your pulse settled quickly after evening and stayed gentle through the night.”</p>
+              </div>
+            </div>
+            <div class="ppanel" data-panel="stress">
+              <div class="ppanel__chart"><canvas id="chartStress"></canvas></div>
+              <div class="ppanel__info">
+                <span class="ppanel__kicker">Stress shows up in silence</span>
+                <div class="ppanel__metrics">
+                  <div><b class="count" data-count="86">0</b><i>% of the day calm</i></div>
+                  <div><b class="count" data-count="3">0</b><i>brief peaks, eased</i></div>
+                </div>
+                <p class="ppanel__note">“A couple of busy hours, then quiet recovery. No alert needed — just awareness.”</p>
+              </div>
+            </div>
+            <div class="ppanel" data-panel="temp">
+              <div class="ppanel__chart"><canvas id="chartTemp"></canvas></div>
+              <div class="ppanel__info">
+                <span class="ppanel__kicker">Temperature speaks first</span>
+                <div class="ppanel__metrics">
+                  <div><b class="count" data-count="36.6" data-decimals="1">0</b><i>°C personal baseline</i></div>
+                  <div><b class="count" data-count="0.2" data-decimals="1">0</b><i>°C nightly change</i></div>
+                </div>
+                <p class="ppanel__note">“Your temperature held steady through the night — right where it likes to be.”</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CRAFT / SPECS ============ -->
+    <section class="section craft" id="craft">
+      <div class="craft__visual" data-parallax-img>
+        <img src="assets/images/life-suit.jpg" alt="Hand wearing CAERING with a tailored wool coat" loading="lazy" />
+      </div>
+      <div class="container craft__container">
+        <div class="craft__content">
+          <p class="eyebrow reveal" data-reveal><span class="eyebrow__dot"></span> The craft</p>
+          <h2 class="h2 reveal" data-reveal>Minimal design.<br /><em>Maximum care.</em></h2>
+          <p class="craft__lead reveal" data-reveal>
+            Not a fitness tracker. Not a smartwatch. CAERING lives between
+            medical accuracy and lifestyle elegance — a daily companion you
+            forget you're wearing.
+          </p>
+          <div class="specs">
+            <div class="spec reveal" data-reveal><b class="count" data-count="2.1" data-decimals="1">0</b><span>grams — impossibly light</span></div>
+            <div class="spec reveal" data-reveal><b class="count" data-count="7">0</b><span>days between charges</span></div>
+            <div class="spec reveal" data-reveal><b class="count" data-count="5">0</b><span>ATM water resistance</span></div>
+            <div class="spec reveal" data-reveal><b class="count" data-count="99.4" data-decimals="1">0</b><span>% signal accuracy</span></div>
+            <div class="spec reveal" data-reveal><b class="count" data-count="4">0</b><span>hand-finished colourways</span></div>
+            <div class="spec reveal" data-reveal><b class="count" data-count="24">0</b><span>-hour gentle insight</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINISHES ============ -->
+    <section class="section finishes" id="finishes">
+      <div class="container">
+        <div class="section__head section__head--center">
+          <p class="eyebrow reveal" data-reveal><span class="eyebrow__dot"></span> The collection</p>
+          <h2 class="h2 reveal" data-reveal>Choose your <em>finish.</em></h2>
+        </div>
+
+        <div class="finishes__layout reveal" data-reveal>
+          <div class="finishes__viewer">
+            <canvas id="finishRing" class="finishes__canvas" aria-label="3D preview of selected ring finish"></canvas>
+            <div class="finishes__fallback" aria-hidden="true"></div>
+            <div class="finishes__hint">Drag to rotate</div>
+          </div>
+
+          <div class="finishes__options">
+            <button class="finish is-active" data-finish="midnight" data-sound="soft">
+              <span class="finish__swatch" style="background:linear-gradient(135deg,#33343a,#0a0a0c)"></span>
+              <span class="finish__txt"><b>Midnight Ceramic</b><i>Deep black · PVD ceramic</i></span>
+              <span class="finish__check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+            <button class="finish" data-finish="gold" data-sound="soft">
+              <span class="finish__swatch" style="background:linear-gradient(135deg,#f3dca6,#b8893a)"></span>
+              <span class="finish__txt"><b>Champagne Gold</b><i>Warm gold · polished titanium</i></span>
+              <span class="finish__check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+            <button class="finish" data-finish="rose" data-sound="soft">
+              <span class="finish__swatch" style="background:linear-gradient(135deg,#f0cbb9,#b97c63)"></span>
+              <span class="finish__txt"><b>Rose Aurora</b><i>Soft rose-gold · satin finish</i></span>
+              <span class="finish__check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+            <button class="finish" data-finish="platinum" data-sound="soft">
+              <span class="finish__swatch" style="background:linear-gradient(135deg,#f4f5f7,#aeb3bc)"></span>
+              <span class="finish__txt"><b>Platinum Silver</b><i>Cool silver · brushed titanium</i></span>
+              <span class="finish__check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="finishes__package">
+          <figure class="reveal" data-reveal data-parallax-img>
+            <img src="assets/images/packaging-box.jpg" alt="CAERING signature matte black keepsake box with gold foil mark" loading="lazy" />
+          </figure>
+          <figure class="reveal" data-reveal data-parallax-img>
+            <img src="assets/images/packaging-open.jpg" alt="CAERING ring resting inside the open presentation box" loading="lazy" />
+          </figure>
+          <p class="finishes__note reveal" data-reveal>Every ring is hand-finished, sealed, and presented in our signature keepsake box — <em>a small ceremony of care.</em></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ APP ============ -->
+    <section class="section app" id="app">
+      <div class="container app__grid">
+        <div class="app__copy">
+          <p class="eyebrow reveal" data-reveal><span class="eyebrow__dot"></span> The companion app</p>
+          <h2 class="h2 reveal" data-reveal>A gentle <em>daily insight.</em></h2>
+          <p class="app__lead reveal" data-reveal>
+            No warnings. No guilt. No leaderboards. Each morning you receive
+            one calm summary of your night — and the option to look closer,
+            only if you wish to.
+          </p>
+          <ul class="app__list">
+            <li class="reveal" data-reveal><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> One morning brief, never a notification storm</li>
+            <li class="reveal" data-reveal><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Trends across days, weeks and months</li>
+            <li class="reveal" data-reveal><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Private by design — data stays yours</li>
+            <li class="reveal" data-reveal><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> iOS &amp; Android, seven days per charge</li>
+          </ul>
+          <div class="app__stores reveal" data-reveal>
+            <a href="#" class="store" aria-label="Download on the App Store" data-sound="soft">
+              <svg viewBox="0 0 24 24"><path d="M16.7 12.6c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.6-1.7-3.2-1.7-1.4-.1-2.6.8-3.3.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.8.8-3.5 2.1-1.5 2.6-.4 6.4 1.1 8.5.7 1 1.6 2.2 2.7 2.2 1.1 0 1.5-.7 2.8-.7s1.7.7 2.8.7c1.2 0 2-1 2.7-2 .8-1.2 1.2-2.3 1.2-2.4-.1 0-2.3-.9-2.3-3.4zM14.5 6.2c.6-.7 1-1.7.9-2.7-.9 0-1.9.6-2.5 1.3-.6.6-1 1.6-.9 2.6 1 .1 2-.5 2.5-1.2z" fill="currentColor"/></svg>
+              <span><i>Download on the</i><b>App Store</b></span>
+            </a>
+            <a href="#" class="store" aria-label="Get it on Google Play" data-sound="soft">
+              <svg viewBox="0 0 24 24"><path d="M3.6 2.3c-.3.3-.5.7-.5 1.3v16.8c0 .6.2 1 .5 1.3l9-9.4-9-10zm10.1 10.4 2.3 2.4-9.9 5.6 7.6-8zm3.3-3.4-2.6-1.5-2.8 2.9 2.8 2.9 2.7-1.5c1-.6 1-2.2-.1-2.8zM6 3.3l9.9 5.6-2.3 2.4L6 3.3z" fill="currentColor"/></svg>
+              <span><i>Get it on</i><b>Google Play</b></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="app__phone reveal" data-reveal data-tilt>
+          <div class="phone">
+            <div class="phone__notch"></div>
+            <div class="phone__screen">
+              <div class="phone__top">
+                <span>Good morning</span>
+                <span class="phone__date">Tue, 26 Sept</span>
+              </div>
+              <div class="phone__rings">
+                <div class="ringg ringg--1"><i>7<small>h 48</small></i><span>Sleep</span></div>
+                <div class="ringg ringg--2"><i>62</i><span>Pulse</span></div>
+                <div class="ringg ringg--3"><i>36.6<small>°</small></i><span>Temp</span></div>
+              </div>
+              <div class="phone__card">
+                <svg viewBox="0 0 24 24" class="phone__spark"><path d="M3 12h4l2.5-6 4 12L16 12h5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <p>You slept deeply, your pulse stayed calm through the night, and your temperature is steady. Let's take it easy.</p>
+              </div>
+              <div class="phone__battery">
+                <span><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" fill="currentColor"/></svg> Ring battery</span>
+                <b>82% · 6 days left</b>
+                <div class="battery-bar"><i style="width:82%"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="app__phone-glow"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STORIES ============ -->
+    <section class="section stories" id="stories">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow reveal" data-reveal><span class="eyebrow__dot"></span> First circle stories</p>
+          <h2 class="h2 reveal" data-reveal>What people <em>quietly love.</em></h2>
+        </div>
+
+        <div class="stories__grid">
+          <article class="story reveal" data-reveal>
+            <div class="story__img"><img src="assets/images/life-coffee.jpg" alt="" loading="lazy" /></div>
+            <p>“I stopped checking my phone at night. The ring just… knows. The morning note is the kindest part of my day.”</p>
+            <div class="story__who"><b>Ananya Iyer</b><i>Product Designer · Bengaluru</i></div>
+            <div class="story__stars">★★★★★</div>
+          </article>
+          <article class="story story--feature reveal" data-reveal>
+            <div class="story__img"><img src="assets/images/life-rest.jpg" alt="" loading="lazy" /></div>
+            <p>“It feels like jewellery first — the technology is a quiet bonus. I forget I'm being looked after, and that's exactly the point.”</p>
+            <div class="story__who"><b>Rohan Mehta</b><i>Cardiac Surgeon · Mumbai</i></div>
+            <div class="story__stars">★★★★★</div>
+          </article>
+          <article class="story reveal" data-reveal>
+            <div class="story__img"><img src="assets/images/life-cashmere.jpg" alt="" loading="lazy" /></div>
+            <p>“As a new parent, rest is everything. No alerts, no pressure — just one gentle summary with my coffee.”</p>
+            <div class="story__who"><b>Meera Nair</b><i>New parent · Pune</i></div>
+            <div class="story__stars">★★★★★</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RESERVE ============ -->
+    <section class="section reserve" id="reserve">
+      <div class="container">
+        <div class="reserve__card reveal" data-reveal>
+          <div class="reserve__mark" aria-hidden="true">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="38" fill="none" stroke-width="7" stroke-dasharray="199 239" transform="rotate(30 50 50)"/>
+              <path d="M62 34c0-4-6-5-7-1-1-4-7-3-7 1 0 6 7 10 7 10s7-4 7-10z"/>
+            </svg>
+          </div>
+          <h2 class="h2">Begin your <em>circle.</em></h2>
+          <p>Reserve the first edition of CAERING. No payment today — just a quiet promise that we'll be in touch the moment doors open.</p>
+          <form class="reserve__form" id="reserveForm">
+            <input type="email" required placeholder="Your email address" aria-label="Email address" />
+            <button type="submit" class="btn btn--gold btn--lg" data-magnetic data-sound="tick"><span>Request early access</span></button>
+          </form>
+          <div class="reserve__done" id="reserveDone">
+            <span class="tick tick--lg"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <b>You're on the list.</b>
+            <i>We'll take care of the rest. Watch your inbox for an early invitation.</i>
+          </div>
+          <div class="reserve__trust">
+            <span>Free at-home sizing</span><i>✦</i>
+            <span>30-day gentle returns</span><i>✦</i>
+            <span>Free shipping across India</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section faq" id="faq">
+      <div class="container faq__grid">
+        <div class="faq__intro">
+          <p class="eyebrow reveal" data-reveal><span class="eyebrow__dot"></span> Questions, answered</p>
+          <h2 class="h2 reveal" data-reveal>Frequently <em>asked.</em></h2>
+          <div class="faq__img reveal" data-reveal data-parallax-img><img src="assets/images/life-city.jpg" alt="" loading="lazy" /></div>
+        </div>
+        <div class="faq__list">
+          <details class="faq__item reveal" data-reveal>
+            <summary>Is CAERING waterproof?<span class="faq__plus"></span></summary>
+            <p>Fully. Rated 5 ATM, the ring is comfortable in the shower, the pool and the sea. No charging ports, nothing to seal.</p>
+          </details>
+          <details class="faq__item reveal" data-reveal>
+            <summary>Will I need to charge it every night?<span class="faq__plus"></span></summary>
+            <p>No. One charge lasts about seven days. Most people charge it while getting ready — it's usually full before their coffee.</p>
+          </details>
+          <details class="faq__item reveal" data-reveal>
+            <summary>Does it have a screen, lights or vibrations?<span class="faq__plus"></span></summary>
+            <p>None at all. CAERING believes care is quiet. It never lights up in the night, never buzzes, never judges.</p>
+          </details>
+          <details class="faq__item reveal" data-reveal>
+            <summary>How accurate are the readings?<span class="faq__plus"></span></summary>
+            <p>Twin-channel PPG optics and research-validated algorithms deliver medical-grade signal accuracy, independently tested in sleep laboratories.</p>
+          </details>
+          <details class="faq__item reveal" data-reveal>
+            <summary>Which phones work with CAERING?<span class="faq__plus"></span></summary>
+            <p>Any iPhone on iOS 15 or later, and Android phones on Android 9 or later, connected securely over Bluetooth 5.3.</p>
+          </details>
+          <details class="faq__item reveal" data-reveal>
+            <summary>How do I find my size?<span class="faq__plus"></span></summary>
+            <p>We send a free at-home sizing kit before your ring ships, with a personal fit consultation if you'd like one.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="final">
+      <div class="final__glow" aria-hidden="true"></div>
+      <div class="container final__inner">
+        <h2 class="final__title">
+          <span class="line"><span class="line__inner">Your body.</span></span>
+          <span class="line"><span class="line__inner"><em>Understood.</em></span></span>
+        </h2>
+        <a href="#reserve" class="btn btn--gold btn--xl" data-magnetic data-sound="tick">
+          <span>Reserve your CAERING</span>
+          <svg viewBox="0 0 24 24" class="ic-arrow" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <p class="final__whisper">Sleep · Pulse · Stress · Temperature</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a href="#top" class="brand" data-magnetic>
+          <img class="brand__mark" src="assets/images/caering-mark.png" alt="" />
+          <img class="brand__word" src="assets/images/caering-word.png" alt="CAERING" />
+        </a>
+        <p class="footer__tag">We'll take care. Always.</p>
+        <div class="footer__social">
+          <a href="#" aria-label="Instagram" data-sound="soft"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="X" data-sound="soft"><svg viewBox="0 0 24 24"><path d="M4 4l7.2 9.1L4.4 20h2.5l5.4-5.8 4.6 5.8H20l-7.5-9.5L19.3 4h-2.5l-4.9 5.3L7.6 4z" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="YouTube" data-sound="soft"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10.5 9.5v5l4.5-2.5-4.5-2.5z" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="LinkedIn" data-sound="soft"><svg viewBox="0 0 24 24"><path d="M6.5 9.5V18h-3v-8.5h3zM5 3.8a1.8 1.8 0 1 1 0 3.6 1.8 1.8 0 0 1 0-3.6zM18.5 18h-3v-4.3c0-1.3-.5-2.2-1.7-2.2-.9 0-1.5.6-1.7 1.2-.1.2-.1.5-.1.9V18h-3V9.5h3v1.3c.4-.7 1.2-1.6 2.8-1.6 2 0 3.7 1.4 3.7 4.2V18z" fill="currentColor"/></svg></a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h4>Product</h4>
+        <a href="#technology">Technology</a>
+        <a href="#wellbeing">Well-being</a>
+        <a href="#finishes">Finishes</a>
+        <a href="#app">Companion app</a>
+      </div>
+      <div class="footer__col">
+        <h4>Company</h4>
+        <a href="#">Our story</a>
+        <a href="#">Care journal</a>
+        <a href="#">Press</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <a href="#faq">FAQs</a>
+        <a href="#">Sizing guide</a>
+        <a href="#">Shipping</a>
+        <a href="#">Returns</a>
+      </div>
+    </div>
+    <div class="footer__base container">
+      <span>© 2026 Caering Wellness Pvt. Ltd.</span>
+      <span class="footer__quiet">Health doesn't need to shout to be powerful.</span>
+      <span>Privacy · Terms · Cookies</span>
+    </div>
+  </footer>
+
+  <!-- film modal -->
+  <div class="modal" id="filmModal" aria-hidden="true">
+    <button class="modal__close" aria-label="Close film" data-sound="soft"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    <div class="modal__frame">
+      <video id="filmVideo" playsinline controls preload="none" poster="assets/images/ring-hero.jpg">
+        <source src="" type="video/mp4" />
+      </video>
+      <div class="modal__poster" id="filmPoster">
+        <img src="assets/images/ring-hero.jpg" alt="" />
+        <div class="modal__coming"><span>Film arriving soon</span><p>A quiet story about sleep, stillness, and care.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/main.js?v=20260927c" type="module"></script>
+  <script nomodule>
+    /* fallback for browsers without ES modules: show content, CSS ring */
+    window.setTimeout(function () {
+      var p = document.getElementById('preloader');
+      if (p) p.parentNode.removeChild(p);
+      document.body.classList.add('no-module');
+    }, 2500);
+  </script>
+</body>
+</html>

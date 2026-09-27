@@ -1,0 +1,14 @@
+# CAERING — Replit configuration
+# Pure static site (HTML/CSS/JS, Three.js from CDN) — no build step required.
+
+# Run button: serve the site with Python's built-in static server (Python is
+# preinstalled in the Replit Nix environment). Binding 0.0.0.0 is required so
+# Replit can detect the open port and expose it in the webview.
+run = "python3 -m http.server 0.0.0.0:8080"
+
+# Static deployment: files are served directly from the repository root,
+# so no build or server process is needed for published deployments.
+[deployment]
+deploymentTarget = "static"
+build = ""
+run = ""
