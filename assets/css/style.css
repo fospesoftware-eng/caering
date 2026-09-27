@@ -638,9 +638,9 @@ body.is-loaded .hero__title {
   mask-composite: intersect;
 }
 .craft__visual img {
-  width: 100%; height: 120%;
+  width: 100%; height: 100%;
   object-fit: cover;
-  margin-top: -5%;
+  object-position: center 28%;
   will-change: transform;
 }
 .craft__container { position: relative; }
