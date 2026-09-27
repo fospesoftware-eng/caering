@@ -1062,6 +1062,8 @@ body.is-loaded .hero__title {
   .craft__visual {
     position: relative; width: 100%; height: 56vh;
   }
+  /* mobile: the ring-focused crop fills the band as-is */
+  .craft__visual img { object-position: center; }
   .specs { grid-template-columns: 1fr; }
   .techx { min-height: 640px; }
   .techx__img { object-fit: contain; object-position: center 58%; }
