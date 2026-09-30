@@ -513,59 +513,48 @@ body.is-loaded .hero__title {
 }
 .strip__inner span { color: var(--gold-2); font-size: .8rem; }
 
-/* ---------------- technology : exploded assembly ---------------- */
+/* ---------------- technology : cinematic background video ---------------- */
 .techx {
   position: relative;
-  min-height: 180vh;
+  min-height: 100svh;
   overflow: hidden;
   background: var(--bg-1);
 }
 .techx__sticky {
-  position: sticky; top: 0;
-  height: 100vh;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-  background: var(--bg-1);
-}
-.techx__sticky::before {
-  content: ""; position: absolute; inset: 0;
-  background: radial-gradient(560px 380px at 50% 48%, var(--bg-2) 0%, transparent 75%);
-  z-index: 0; pointer-events: none;
-}
-.techx__explode {
   position: relative;
-  width: min(100%, 1100px);
-  aspect-ratio: 1556 / 1011;
-  --p: 0;
-  z-index: 1;
+  height: 100svh;
+  overflow: hidden;
 }
-.techx__part {
-  position: absolute;
-  width: auto;
-  will-change: transform;
+.techx__video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
-.techx__part--center {
-  filter: drop-shadow(0 6px 28px rgba(168,123,50,.18));
-  z-index: 2;
+.techx__scrim {
+  content: ""; position: absolute; inset: 0;
+  z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(92deg, rgba(9,11,16,.60) 0%, rgba(9,11,16,.14) 40%, transparent 62%),
+    linear-gradient(180deg, rgba(9,11,16,.40) 0%, transparent 26%, transparent 66%, rgba(9,11,16,.52) 100%);
 }
 .techx__content { position: absolute; inset: 0; z-index: 3; }
 .techx__title {
-  position: absolute; top: 9%; left: 0;
+  position: absolute; top: calc(var(--header-h) + 24px); left: 0;
   font-family: var(--font-body);
   font-weight: 300;
   font-size: clamp(2.1rem, 4vw, 3.55rem);
   line-height: 1.15;
   letter-spacing: -0.015em;
-  color: var(--ink);
+  color: #f6f1e6;
 }
 .techx__title em { font-style: normal; }
 .techx__note {
-  position: absolute; bottom: 11%; right: 0;
+  position: absolute; bottom: 12%; right: 0;
   max-width: 320px;
   font-size: 0.9rem;
   line-height: 1.75;
-  color: var(--ink-soft);
+  color: rgba(240,233,218,.82);
 }
 [data-parallax-img] { transform: translateZ(0); }
 
@@ -1066,12 +1055,9 @@ body.is-loaded .hero__title {
   /* mobile: the ring-focused crop fills the band as-is */
   .craft__visual img { object-position: center; }
   .specs { grid-template-columns: 1fr; }
-  .techx { min-height: auto; }
-  .techx__sticky { position: relative; height: auto; min-height: 560px; padding: 60px 0; }
-  .techx__explode { --p: 1; width: 100%; }
-  .techx__part { transform: translate(-50%, -50%) !important; }
-  .techx__title { top: 4%; font-size: clamp(1.9rem, 8vw, 2.6rem); }
-  .techx__note { bottom: 3%; max-width: 240px; font-size: .82rem; }
+  .techx__sticky { height: 100svh; min-height: 560px; }
+  .techx__title { top: calc(var(--header-h) + 14px); font-size: clamp(1.9rem, 8vw, 2.6rem); }
+  .techx__note { bottom: 6%; max-width: 240px; font-size: .82rem; }
 }
 
 @media (max-width: 520px) {
@@ -1096,5 +1082,4 @@ body:not(.is-loaded) .hero__title { animation-play-state: paused; opacity: 0; }
   .reveal, .line__inner { opacity: 1 !important; transform: none !important; }
   .techx { min-height: 100vh; }
   .techx__sticky { position: relative; height: 100vh; }
-  .techx__part { transform: translate(-50%, -50%) !important; }
 }

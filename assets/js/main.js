@@ -188,21 +188,6 @@ function onScroll() {
   progress.style.width = `${(y / max) * 100}%`;
 
   if (!prefersReduced) {
-    const techExplode = $('#techExplode');
-    if (techExplode) {
-      const r = techExplode.closest('.techx').getBoundingClientRect();
-      const scrollable = r.height - innerHeight;
-      if (scrollable > 0) {
-        const p = THREE_clamp(-r.top / scrollable, 0, 1);
-        const cw = techExplode.offsetWidth;
-        techExplode.style.setProperty('--p', p);
-        techExplode.querySelectorAll('.techx__part').forEach((part) => {
-          const off = parseFloat(part.dataset.offset) * cw;
-          const s = 0.86 + 0.14 * p;
-          part.style.transform = `translate(-50%, -50%) translateX(${off * (1 - p)}px) scale(${s})`;
-        });
-      }
-    }
     if (craftImg) {
       const sec = $('.craft');
       const r = sec.getBoundingClientRect();
@@ -225,6 +210,28 @@ window.addEventListener('scroll', () => {
   if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
 }, { passive: true });
 onScroll();
+
+/* =============================================================
+   8b. TECHNOLOGY BACKGROUND VIDEO
+   Muted, looping; plays only while the section is on screen.
+   Reduced-motion users stay on the static poster frame.
+   ============================================================= */
+const techVideo = $('#techVideo');
+if (techVideo) {
+  techVideo.muted = true;
+  if (prefersReduced) {
+    techVideo.removeAttribute('autoplay');
+    techVideo.addEventListener('loadeddata', () => techVideo.pause(), { once: true });
+  } else {
+    const techVideoIO = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) techVideo.play().catch(() => {});
+        else techVideo.pause();
+      });
+    }, { threshold: 0.2 });
+    techVideoIO.observe(techVideo);
+  }
+}
 
 /* =============================================================
    9. COUNTERS
