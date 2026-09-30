@@ -188,6 +188,15 @@ function onScroll() {
   progress.style.width = `${(y / max) * 100}%`;
 
   if (!prefersReduced) {
+    const techExplode = $('#techExplode');
+    if (techExplode) {
+      const r = techExplode.closest('.techx').getBoundingClientRect();
+      const scrollable = r.height - innerHeight;
+      if (scrollable > 0) {
+        const p = THREE_clamp(-r.top / scrollable, 0, 1);
+        techExplode.style.setProperty('--p', p);
+      }
+    }
     if (craftImg) {
       const sec = $('.craft');
       const r = sec.getBoundingClientRect();

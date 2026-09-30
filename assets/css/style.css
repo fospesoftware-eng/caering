@@ -516,20 +516,44 @@ body.is-loaded .hero__title {
 /* ---------------- technology : exploded assembly ---------------- */
 .techx {
   position: relative;
-  min-height: 100vh;
+  min-height: 180vh;
   overflow: hidden;
   color: #f6f6f8;
+}
+.techx__sticky {
+  position: sticky; top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
   background:
     radial-gradient(1200px 720px at 50% 36%, #181820 0%, #0f0f13 52%, #0b0b0d 100%);
 }
-.techx__img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  display: block;
-  object-fit: cover;
-  object-position: center;
+.techx__explode {
+  position: relative;
+  width: min(100%, 1100px);
+  aspect-ratio: 1556 / 1011;
+  --p: 0;
 }
-.techx__content { position: absolute; inset: 0; }
+.techx__layer {
+  position: absolute; inset: 0;
+  background: url("../images/technology-exploded.png") no-repeat center / cover;
+}
+.techx__layer--left {
+  clip-path: inset(0 58% 0 0);
+  transform: translateX(calc(14% * (1 - var(--p))));
+  will-change: transform;
+}
+.techx__layer--center {
+  clip-path: inset(0 30% 0 30%);
+  z-index: 2;
+}
+.techx__layer--right {
+  clip-path: inset(0 0 0 58%);
+  transform: translateX(calc(-14% * (1 - var(--p))));
+  will-change: transform;
+}
+.techx__content { position: absolute; inset: 0; z-index: 3; }
 .techx__title {
   position: absolute; top: 9%; left: 0;
   font-family: var(--font-body);
@@ -1046,10 +1070,11 @@ body.is-loaded .hero__title {
   /* mobile: the ring-focused crop fills the band as-is */
   .craft__visual img { object-position: center; }
   .specs { grid-template-columns: 1fr; }
-  .techx { min-height: 640px; }
-  .techx__img { object-fit: contain; object-position: center 58%; }
-  .techx__title { top: 15%; font-size: clamp(1.9rem, 8vw, 2.6rem); }
-  .techx__note { bottom: 6%; max-width: 240px; font-size: .82rem; }
+  .techx { min-height: auto; }
+  .techx__sticky { position: relative; height: auto; min-height: 560px; padding: 60px 0; }
+  .techx__explode { --p: 1; width: 100%; }
+  .techx__title { top: 4%; font-size: clamp(1.9rem, 8vw, 2.6rem); }
+  .techx__note { bottom: 3%; max-width: 240px; font-size: .82rem; }
 }
 
 @media (max-width: 520px) {
@@ -1072,4 +1097,7 @@ body:not(.is-loaded) .hero__title { animation-play-state: paused; opacity: 0; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   html { scroll-behavior: auto; }
   .reveal, .line__inner { opacity: 1 !important; transform: none !important; }
+  .techx { min-height: 100vh; }
+  .techx__sticky { position: relative; height: 100vh; }
+  .techx__explode { --p: 1; }
 }
