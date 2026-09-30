@@ -317,9 +317,9 @@ em { font-style: italic; }
 .nav { display: flex; gap: 6px; margin-left: auto; margin-right: 8px; }
 .nav__link {
   padding: 9px 17px; border-radius: 100px;
-  font-family: var(--font-display);
-  font-size: 16px; font-weight: 400; color: var(--ink-soft);
-  letter-spacing: .01em;
+  font-family: var(--font-body);
+  font-size: 16px; font-weight: 600; color: var(--ink-soft);
+  letter-spacing: .005em;
   position: relative;
   transition: color .35s;
 }
@@ -348,7 +348,7 @@ em { font-style: italic; }
 [data-theme="light"] .ic-sound-off, [data-theme="dark"] .ic-sound-off { display: none; }
 .is-muted .ic-sound-on { display: none; }
 .is-muted .ic-sound-off { display: block; }
-.header__cta { padding: 12px 22px; }
+.header__cta { padding: 12px 22px; font-weight: 600; }
 
 .header__burger { display: none; position: relative; }
 .header__burger span {
