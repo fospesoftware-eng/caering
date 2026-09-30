@@ -241,26 +241,12 @@ em { font-style: italic; }
   .preloader__wordimg { opacity: 1; animation: none; }
 }
 
-/* ---------------- custom cursor ---------------- */
-.cursor, .cursor-dot {
-  position: fixed; top: 0; left: 0; z-index: 250;
-  pointer-events: none; border-radius: 50%;
-  mix-blend-mode: difference;
-  display: none;
+/* ---------------- ECG interaction trace ---------------- */
+.ecg {
+  position: fixed; inset: 0; z-index: 300;
+  width: 100%; height: 100%;
+  pointer-events: none;
 }
-.cursor {
-  width: 38px; height: 38px;
-  border: 1.4px solid var(--gold-1);
-  transform: translate(-50%, -50%);
-  transition: width .3s, height .3s, background-color .3s, border-color .3s;
-}
-.cursor-dot {
-  width: 5px; height: 5px; background: var(--gold-1);
-  transform: translate(-50%, -50%);
-}
-.cursor.is-hover { width: 64px; height: 64px; background: rgba(244, 221, 166, .12); }
-.cursor.is-down { width: 30px; height: 30px; }
-@media (pointer: fine) { .cursor, .cursor-dot { display: block; } }
 
 /* ---------------- buttons ---------------- */
 .btn {

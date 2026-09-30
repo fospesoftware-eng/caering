@@ -1,6 +1,6 @@
 /* =====================================================================
    CAERING — main interactions
-   3D viewers · theme · sound · cursor · parallax · charts · counters
+   3D viewers · theme · sound · ECG trace · parallax · charts · counters
    ===================================================================== */
 
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -107,37 +107,156 @@ document.addEventListener('click', (e) => {
 });
 
 /* =============================================================
-   4. CUSTOM CURSOR
+   4. ECG TRACE — heartbeat readout on interactive hover/tap
    ============================================================= */
-if (isFinePointer && !prefersReduced) {
-  const cursor = $('#cursor');
-  const dot = $('#cursorDot');
-  let cx = innerWidth / 2, cy = innerHeight / 2;
-  let tx = cx, ty = cy;
-  cursor.style.opacity = '0'; dot.style.opacity = '0';
+if (!prefersReduced) {
+  const ecg = $('#ecgCanvas');
+  if (ecg) {
+    const ctx = ecg.getContext('2d');
+    let dpr = Math.min(devicePixelRatio || 1, 2);
+    let W = innerWidth, H = innerHeight;
 
-  window.addEventListener('mousemove', (e) => {
-    tx = e.clientX; ty = e.clientY;
-    cursor.style.opacity = ''; dot.style.opacity = '';
-    dot.style.transform = `translate(${tx}px,${ty}px) translate(-50%,-50%)`;
-  });
-  (function loop() {
-    cx += (tx - cx) * 0.16; cy += (ty - cy) * 0.16;
-    cursor.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
-    requestAnimationFrame(loop);
-  })();
-  window.addEventListener('mousedown', () => cursor.classList.add('is-down'));
-  window.addEventListener('mouseup', () => cursor.classList.remove('is-down'));
-  document.addEventListener('mouseover', (e) => {
-    if (e.target.closest('a, button, summary, input, .finish, .ptab, [data-magnetic]')) {
-      cursor.classList.add('is-hover');
+    function sizeCanvas() {
+      W = innerWidth; H = innerHeight;
+      dpr = Math.min(devicePixelRatio || 1, 2);
+      ecg.width = Math.round(W * dpr);
+      ecg.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
-  });
-  document.addEventListener('mouseout', (e) => {
-    if (e.target.closest('a, button, summary, input, .finish, .ptab, [data-magnetic]')) {
-      cursor.classList.remove('is-hover');
+    sizeCanvas();
+    addEventListener('resize', sizeCanvas);
+
+    /* PQRST beat key points — (phase 0..1, amplitude); up = -y */
+    const BEAT = [
+      [0, 0], [.08, 0],
+      [.10, -.09], [.14, -.14], [.18, -.09], [.20, 0],
+      [.27, 0],
+      [.30, .09], [.32, .10],
+      [.355, -1], [.385, .10],
+      [.42, .30], [.46, .10],
+      [.50, 0],
+      [.56, -.15], [.62, -.24], [.68, -.15], [.72, 0],
+      [1, 0]
+    ];
+    function beatAmp(u) {
+      u = ((u % 1) + 1) % 1;
+      for (let i = 0; i < BEAT.length - 1; i++) {
+        const [u0, a0] = BEAT[i], [u1, a1] = BEAT[i + 1];
+        if (u >= u0 && u <= u1) {
+          const t = (u - u0) / (u1 - u0);
+          return a0 + (a1 - a0) * t;
+        }
+      }
+      return 0;
     }
-  });
+
+    /* gold trace follows the active theme */
+    let gold = '#d2a65a', pulseColor = '#dd5e86';
+    function readColors() {
+      const cs = getComputedStyle(root);
+      gold = cs.getPropertyValue('--gold-2').trim() || gold;
+      pulseColor = cs.getPropertyValue('--rose').trim() || pulseColor;
+    }
+    readColors();
+    new MutationObserver(readColors).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+
+    const INTERACTIVE = 'a[href], button, summary, input, textarea, label, .finish, .ptab, [data-magnetic], [role="button"]';
+
+    let px = W / 2, py = H / 2;
+    let hovering = false, hover = 0;
+
+    addEventListener('pointermove', (e) => { px = e.clientX; py = e.clientY; }, { passive: true });
+    document.addEventListener('pointerover', (e) => {
+      if (e.target.closest?.(INTERACTIVE)) hovering = true;
+    });
+    document.addEventListener('pointerout', (e) => {
+      if (e.target.closest?.(INTERACTIVE) && !e.relatedTarget?.closest?.(INTERACTIVE)) hovering = false;
+    });
+
+    /* click / tap heartbeat pulses */
+    const pulses = [];
+    document.addEventListener('pointerdown', (e) => {
+      if (!e.target.closest?.(INTERACTIVE)) return;
+      pulses.push({ x: e.clientX, y: e.clientY, t: performance.now() });
+      if (pulses.length > 5) pulses.shift();
+    });
+
+    let lastT = performance.now();
+    function frame(now) {
+      requestAnimationFrame(frame);
+      const dt = Math.min((now - lastT) / 1000, .05);
+      lastT = now;
+      ctx.clearRect(0, 0, W, H);
+
+      /* ease trace in/out */
+      hover += ((hovering ? 1 : 0) - hover) * Math.min(1, dt * 11);
+
+      if (hover > .02) {
+        const halfW = 52, amp = 16;
+        const cx = px, baseline = py + 24;
+        const phase = now / 900;
+        ctx.save();
+        ctx.lineWidth = 1.6;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = gold;
+        ctx.shadowColor = gold;
+        ctx.shadowBlur = 8;
+        const SEG = 8, STEPS = 14;
+        for (let s = 0; s < SEG; s++) {
+          const f0 = s / SEG, f1 = (s + 1) / SEG;
+          let a = hover;
+          if (f0 < .14) a *= f0 / .14;
+          if (f0 > .86) a *= (1 - f0) / .14;
+          ctx.globalAlpha = Math.max(0, a);
+          ctx.beginPath();
+          for (let j = 0; j <= STEPS; j++) {
+            const u = f0 + (f1 - f0) * (j / STEPS);
+            const x = cx - halfW + u * halfW * 2;
+            const y = baseline + beatAmp(u + phase) * amp;
+            if (s === 0 && j === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      /* pulse: trace the beat fast, hold briefly, fade away */
+      for (let i = pulses.length - 1; i >= 0; i--) {
+        const p = pulses[i];
+        const t = (now - p.t) / 1000;
+        if (t > .8) { pulses.splice(i, 1); continue; }
+        const drawP = Math.min(1, t / .24);
+        const alpha = t < .3 ? 1 : Math.max(0, 1 - (t - .3) / .5);
+        const scale = 1 + Math.min(t, .3) * .25;
+        const halfW = 58 * scale, amp = 22 * scale;
+        const cx = p.x, baseline = p.y + 12 * scale;
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(cx - halfW, p.y - amp - 12, halfW * 2 * drawP, amp * 2 + 44);
+        ctx.clip();
+        ctx.beginPath();
+        const N = 110;
+        for (let k = 0; k <= N; k++) {
+          const u = k / N;
+          const x = cx - halfW + u * halfW * 2;
+          const y = baseline + beatAmp(u) * amp;
+          if (k === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = pulseColor;
+        ctx.lineWidth = 1.8;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.shadowColor = pulseColor;
+        ctx.shadowBlur = 12;
+        ctx.globalAlpha = alpha;
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
+    requestAnimationFrame(frame);
+  }
 }
 
 /* =============================================================
