@@ -518,7 +518,7 @@ body.is-loaded .hero__title {
   position: relative;
   min-height: 180vh;
   overflow: hidden;
-  color: #f6f6f8;
+  background: var(--bg-1);
 }
 .techx__sticky {
   position: sticky; top: 0;
@@ -526,32 +526,28 @@ body.is-loaded .hero__title {
   overflow: hidden;
   display: grid;
   place-items: center;
-  background:
-    radial-gradient(1200px 720px at 50% 36%, #181820 0%, #0f0f13 52%, #0b0b0d 100%);
+  background: var(--bg-1);
+}
+.techx__sticky::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(560px 380px at 50% 48%, var(--bg-2) 0%, transparent 75%);
+  z-index: 0; pointer-events: none;
 }
 .techx__explode {
   position: relative;
   width: min(100%, 1100px);
   aspect-ratio: 1556 / 1011;
   --p: 0;
+  z-index: 1;
 }
-.techx__layer {
-  position: absolute; inset: 0;
-  background: url("../images/technology-exploded.png") no-repeat center / cover;
-}
-.techx__layer--left {
-  clip-path: inset(0 58% 0 0);
-  transform: translateX(calc(14% * (1 - var(--p))));
+.techx__part {
+  position: absolute;
+  width: auto;
   will-change: transform;
 }
-.techx__layer--center {
-  clip-path: inset(0 30% 0 30%);
+.techx__part--center {
+  filter: drop-shadow(0 6px 28px rgba(168,123,50,.18));
   z-index: 2;
-}
-.techx__layer--right {
-  clip-path: inset(0 0 0 58%);
-  transform: translateX(calc(-14% * (1 - var(--p))));
-  will-change: transform;
 }
 .techx__content { position: absolute; inset: 0; z-index: 3; }
 .techx__title {
@@ -561,7 +557,7 @@ body.is-loaded .hero__title {
   font-size: clamp(2.1rem, 4vw, 3.55rem);
   line-height: 1.15;
   letter-spacing: -0.015em;
-  color: #f7f7f9;
+  color: var(--ink);
 }
 .techx__title em { font-style: normal; }
 .techx__note {
@@ -569,7 +565,7 @@ body.is-loaded .hero__title {
   max-width: 320px;
   font-size: 0.9rem;
   line-height: 1.75;
-  color: #8e8e98;
+  color: var(--ink-soft);
 }
 [data-parallax-img] { transform: translateZ(0); }
 
@@ -1073,6 +1069,7 @@ body.is-loaded .hero__title {
   .techx { min-height: auto; }
   .techx__sticky { position: relative; height: auto; min-height: 560px; padding: 60px 0; }
   .techx__explode { --p: 1; width: 100%; }
+  .techx__part { transform: translate(-50%, -50%) !important; }
   .techx__title { top: 4%; font-size: clamp(1.9rem, 8vw, 2.6rem); }
   .techx__note { bottom: 3%; max-width: 240px; font-size: .82rem; }
 }
@@ -1099,5 +1096,5 @@ body:not(.is-loaded) .hero__title { animation-play-state: paused; opacity: 0; }
   .reveal, .line__inner { opacity: 1 !important; transform: none !important; }
   .techx { min-height: 100vh; }
   .techx__sticky { position: relative; height: 100vh; }
-  .techx__explode { --p: 1; }
+  .techx__part { transform: translate(-50%, -50%) !important; }
 }

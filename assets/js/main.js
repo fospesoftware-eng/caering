@@ -194,7 +194,13 @@ function onScroll() {
       const scrollable = r.height - innerHeight;
       if (scrollable > 0) {
         const p = THREE_clamp(-r.top / scrollable, 0, 1);
+        const cw = techExplode.offsetWidth;
         techExplode.style.setProperty('--p', p);
+        techExplode.querySelectorAll('.techx__part').forEach((part) => {
+          const off = parseFloat(part.dataset.offset) * cw;
+          const s = 0.86 + 0.14 * p;
+          part.style.transform = `translate(-50%, -50%) translateX(${off * (1 - p)}px) scale(${s})`;
+        });
       }
     }
     if (craftImg) {
