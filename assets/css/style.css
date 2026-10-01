@@ -342,12 +342,6 @@ em { font-style: italic; }
 }
 .icon-btn .ic { width: 19px; height: 19px; position: absolute; }
 .icon-btn:hover { color: var(--ink); border-color: var(--line); background: var(--surface); transform: translateY(-1px); }
-[data-theme="light"] .ic-moon, [data-theme="dark"] .ic-sun { opacity: 0; transform: scale(.5) rotate(-90deg); }
-[data-theme="light"] .ic-sun, [data-theme="dark"] .ic-moon { opacity: 1; transform: none; }
-.ic-sun, .ic-moon { transition: opacity .45s var(--ease-out), transform .55s var(--ease-out); }
-[data-theme="light"] .ic-sound-off, [data-theme="dark"] .ic-sound-off { display: none; }
-.is-muted .ic-sound-on { display: none; }
-.is-muted .ic-sound-off { display: block; }
 .header__cta { padding: 12px 22px; font-weight: 600; }
 
 .header__burger { display: none; position: relative; }
@@ -1088,9 +1082,6 @@ body:not(.is-loaded) .hero__title { animation-play-state: paused; opacity: 0; }
    INNER PAGES — page heroes · spec sheets · feature rows · app detail
    ===================================================================== */
 
-/* header toggle buttons (theme / sound) */
-.icon-btn--tog { position: relative; }
-
 /* ---------------- page hero ---------------- */
 .page-hero {
   position: relative;
@@ -1407,9 +1398,5 @@ body:not(.is-loaded) .hero__title { animation-play-state: paused; opacity: 0; }
   .apptiles { grid-template-columns: 1fr; }
   .spectable__row { grid-template-columns: 1fr; gap: 5px; padding: 14px 20px; }
   .spectable__label { padding: 18px 20px 6px; }
-  .icon-btn--tog { width: 38px; height: 38px; }
   .storebtn { flex: 1; justify-content: center; }
-}
-@media (max-width: 380px) {
-  #soundToggle { display: none; }
 }

@@ -35,24 +35,15 @@ window.addEventListener('load', () => {
 /* =============================================================
    2. THEME
    ============================================================= */
-const root = document.documentElement;
-const savedTheme = localStorage.getItem('caering-theme');
-if (savedTheme) root.setAttribute('data-theme', savedTheme);
-
-$('#themeToggle')?.addEventListener('click', () => {
-  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  root.setAttribute('data-theme', next);
-  localStorage.setItem('caering-theme', next);
-  const meta = $('meta[name="theme-color"]');
-  if (meta) meta.setAttribute('content', next === 'dark' ? '#16120b' : '#f4efe6');
-  heroViewer?.setTheme?.(next === 'dark');
-});
+// Theme is fixed to light; clear any previously saved preference.
+localStorage.removeItem('caering-theme');
 
 /* =============================================================
    3. SOUND — minimal Web Audio
    ============================================================= */
 let audioCtx = null, masterGain = null;
-let soundOn = localStorage.getItem('caering-sound') !== 'off';
+const soundOn = true;
+localStorage.removeItem('caering-sound');
 
 function ensureAudio() {
   if (audioCtx) { if (audioCtx.state === 'suspended') audioCtx.resume(); return; }
@@ -88,16 +79,6 @@ function playSound(kind) {
     osc.start(t); osc.stop(t + 0.18);
   }
 }
-const soundBtn = $('#soundToggle');
-function refreshSoundUI() { soundBtn && soundBtn.classList.toggle('is-muted', !soundOn); }
-refreshSoundUI();
-soundBtn?.addEventListener('click', () => {
-  soundOn = !soundOn;
-  localStorage.setItem('caering-sound', soundOn ? 'on' : 'off');
-  if (masterGain) masterGain.gain.value = soundOn ? 0.14 : 0;
-  refreshSoundUI();
-  if (soundOn) playSound('soft');
-});
 document.addEventListener('pointerdown', ensureAudio, { once: true });
 
 // delegated sound hooks
