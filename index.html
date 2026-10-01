@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/style.css?v=20261002d" />
+  <link rel="stylesheet" href="assets/css/style.css?v=20261003a" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='38' fill='none' stroke='%23b8893a' stroke-width='9' stroke-dasharray='182 57' transform='rotate(43 50 50)'/%3E%3Cpath d='M85 57C79.5 52.5 78 50 78 48.3 78 46.2 79.8 45 81.5 45c1.5 0 2.7.8 3.5 2.1.8-1.3 2-2.1 3.5-2.1 1.7 0 3.5 1.2 3.5 3.3 0 1.7-1.5 4.2-7 8.7z' fill='%23b8893a'/%3E%3C/svg%3E" />
 
   <script type="importmap">
@@ -50,12 +50,21 @@
 
       <nav class="nav" aria-label="Primary">
         <a href="#technology" class="nav__link">Technology</a>
-        <a href="#wellbeing" class="nav__link">Well-being</a>
+        <a href="features.html" class="nav__link">Features</a>
+        <a href="product.html" class="nav__link">Specs</a>
         <a href="#finishes" class="nav__link">Finishes</a>
-        <a href="#app" class="nav__link">The App</a>
+        <a href="app.html" class="nav__link">The App</a>
       </nav>
 
       <div class="header__actions">
+        <button class="icon-btn icon-btn--tog" id="themeToggle" aria-label="Switch between light and dark theme" data-sound="tick">
+          <svg class="ic ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 2.8v2.2M12 19v2.2M2.8 12H5M19 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <svg class="ic ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8 8.2 8.2 0 1 0 20.2 14.2z" fill="currentColor"/></svg>
+        </button>
+        <button class="icon-btn icon-btn--tog" id="soundToggle" aria-label="Turn interface sounds on or off" data-sound="tick">
+          <svg class="ic ic-sound-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.4L12 18.6V5.4L7.4 9.5H4z" fill="currentColor"/><path d="M15 9.2a3.8 3.8 0 0 1 0 5.6M17.4 7a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg class="ic ic-sound-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.4L12 18.6V5.4L7.4 9.5H4z" fill="currentColor"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
         <a href="#reserve" class="btn btn--gold header__cta" data-magnetic data-sound="tick">
           <span>Reserve</span>
           <svg viewBox="0 0 24 24" class="ic-arrow" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -71,11 +80,12 @@
   <!-- mobile nav drawer -->
   <div class="drawer" id="drawer" aria-hidden="true">
     <nav class="drawer__nav">
-      <a href="#technology" class="drawer__link">Technology</a>
-      <a href="#wellbeing" class="drawer__link">Well-being</a>
-      <a href="#finishes" class="drawer__link">Finishes</a>
-      <a href="#app" class="drawer__link">The App</a>
-      <a href="#reserve" class="drawer__link drawer__link--cta">Reserve yours</a>
+      <a href="index.html#technology" class="drawer__link">Technology</a>
+      <a href="features.html" class="drawer__link">Features</a>
+      <a href="product.html" class="drawer__link">Specifications</a>
+      <a href="index.html#finishes" class="drawer__link">Finishes</a>
+      <a href="app.html" class="drawer__link">The App</a>
+      <a href="index.html#reserve" class="drawer__link drawer__link--cta">Reserve yours</a>
     </nav>
   </div>
 
@@ -456,9 +466,10 @@
       <div class="footer__col">
         <h4>Product</h4>
         <a href="#technology">Technology</a>
-        <a href="#wellbeing">Well-being</a>
+        <a href="features.html">Features</a>
+        <a href="product.html">Specifications</a>
         <a href="#finishes">Finishes</a>
-        <a href="#app">Companion app</a>
+        <a href="app.html">Companion app</a>
       </div>
       <div class="footer__col">
         <h4>Company</h4>
@@ -496,7 +507,7 @@
     </div>
   </div>
 
-  <script src="assets/js/main.js?v=20261002c" type="module"></script>
+  <script src="assets/js/main.js?v=20261003a" type="module"></script>
   <script nomodule>
     /* fallback for browsers without ES modules: show content, CSS ring */
     window.setTimeout(function () {

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features — CAERING</title>
+  <meta name="description" content="Explore every CAERING feature in depth: sleep stages, pulse and ECG rhythm, stress and calm, skin temperature, workouts, recovery readiness, pregnancy care and a seven-day battery." />
+  <meta name="theme-color" content="#f4efe6" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/style.css?v=20261003a" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='38' fill='none' stroke='%23b8893a' stroke-width='9' stroke-dasharray='182 57' transform='rotate(43 50 50)'/%3E%3Cpath d='M85 57C79.5 52.5 78 50 78 48.3 78 46.2 79.8 45 81.5 45c1.5 0 2.7.8 3.5 2.1.8-1.3 2-2.1 3.5-2.1 1.7 0 3.5 1.2 3.5 3.3 0 1.7-1.5 4.2-7 8.7z' fill='%23b8893a'/%3E%3C/svg%3E" />
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ============ PRELOADER ============ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__mark">
+      <img class="preloader__markimg" src="assets/images/caering-mark.png" alt="" width="150" height="146" />
+    </div>
+    <img class="preloader__wordimg" src="assets/images/caering-word.png" alt="CAERING" width="150" height="28" />
+  </div>
+
+  <!-- ambient background washes -->
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient__blob ambient__blob--1"></div>
+    <div class="ambient__blob ambient__blob--2"></div>
+    <div class="ambient__grain"></div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="brand" aria-label="CAERING home" data-magnetic>
+        <img class="brand__mark" src="assets/images/caering-mark.png" alt="" />
+        <img class="brand__word" src="assets/images/caering-word.png" alt="CAERING" />
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html#technology" class="nav__link">Technology</a>
+        <a href="features.html" class="nav__link" aria-current="page">Features</a>
+        <a href="product.html" class="nav__link">Specs</a>
+        <a href="index.html#finishes" class="nav__link">Finishes</a>
+        <a href="app.html" class="nav__link">The App</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="icon-btn icon-btn--tog" id="themeToggle" aria-label="Switch between light and dark theme" data-sound="tick">
+          <svg class="ic ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 2.8v2.2M12 19v2.2M2.8 12H5M19 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <svg class="ic ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8 8.2 8.2 0 1 0 20.2 14.2z" fill="currentColor"/></svg>
+        </button>
+        <button class="icon-btn icon-btn--tog" id="soundToggle" aria-label="Turn interface sounds on or off" data-sound="tick">
+          <svg class="ic ic-sound-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.4L12 18.6V5.4L7.4 9.5H4z" fill="currentColor"/><path d="M15 9.2a3.8 3.8 0 0 1 0 5.6M17.4 7a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg class="ic ic-sound-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.4L12 18.6V5.4L7.4 9.5H4z" fill="currentColor"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+        <a href="index.html#reserve" class="btn btn--gold header__cta" data-magnetic data-sound="tick">
+          <span>Reserve</span>
+          <svg viewBox="0 0 24 24" class="ic-arrow" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <button class="icon-btn header__burger" id="burger" aria-label="Open menu">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="header__progress"><span id="scrollProgress"></span></div>
+  </header>
+
+  <!-- mobile nav drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <nav class="drawer__nav">
+      <a href="index.html#technology" class="drawer__link">Technology</a>
+      <a href="features.html" class="drawer__link">Features</a>
+      <a href="product.html" class="drawer__link">Specifications</a>
+      <a href="index.html#finishes" class="drawer__link">Finishes</a>
+      <a href="app.html" class="drawer__link">The App</a>
+      <a href="index.html#reserve" class="drawer__link drawer__link--cta">Reserve yours</a>
+    </nav>
+  </div>
+
+  <main id="top">
+
+    <!-- ============ PAGE HERO ============ -->
+    <section class="page-hero">
+      <div class="container">
+        <nav class="crumbs reveal" data-reveal aria-label="Breadcrumb">
+          <a href="index.html">Home</a><span>/</span>Features
+        </nav>
+        <h1 class="page-hero__title reveal" data-reveal>Eight ways care <em>quietly happens.</em></h1>
+        <p class="page-hero__lede reveal" data-reveal>CAERING turns raw biological signals into a calm, honest picture of how you really are. Here is everything it watches, understands and remembers — without ever asking for your attention.</p>
+        <div class="signaljump reveal" data-reveal">
+          <a href="#sleep">Sleep</a>
+          <a href="#pulse">Pulse & ECG</a>
+          <a href="#calm">Calm</a>
+          <a href="#temperature">Temperature</a>
+          <a href="#workouts">Workouts</a>
+          <a href="#recovery">Recovery</a>
+          <a href="#pregnancy">Pregnancy care</a>
+          <a href="#battery">Battery</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURE ROWS ============ -->
+    <section class="section" style="padding-top:0">
+      <div class="container">
+
+        <!-- 01 SLEEP -->
+        <article class="frow" id="sleep">
+          <div class="frow__media reveal" data-reveal>
+            <img src="assets/images/fx-sleep.jpg" alt="A woman sleeping peacefully on a light pillow" />
+            <span class="frow__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4 6.5 6.5 0 0 0 20 14.5z" fill="currentColor"/></svg> Sleep score each morning</span>
+          </div>
+          <div class="frow__copy reveal" data-reveal>
+            <span class="frow__index">01</span>
+            <p class="eyebrow"><span class="eyebrow__dot"></span> Sleep health</p>
+            <h2 class="frow__title">The full story of your night.</h2>
+            <p class="frow__lede">Twin optical channels read pulse, movement and skin temperature through every phase of rest, so mornings come with clarity — not a lecture.</p>
+            <ul class="frow__list">
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Light, deep and REM stages, plus time truly awake</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Sleep score built from duration, quality, timing and restoration</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Bedtime and wake-time consistency over weeks and months</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Quiet nighttime sensing — no lights, no buzzes</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 02 PULSE & ECG -->
+        <article class="frow frow--rev" id="pulse">
+          <div class="frow__media reveal" data-reveal>
+            <img src="assets/images/fx-pulse.jpg" alt="Aerial view of rhythmic teal ocean waves meeting white sand" />
+            <span class="frow__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2.5 6L14 6l2 6h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> On-demand ECG in 30 seconds</span>
+          </div>
+          <div class="frow__copy reveal" data-reveal>
+            <span class="frow__index">02</span>
+            <p class="eyebrow"><span class="eyebrow__dot"></span> Pulse & heart rhythm</p>
+            <h2 class="frow__title">Your rhythm, read with precision.</h2>
+            <p class="frow__lede">Continuous heart rate and heart-rate variability are captured around the clock. When you want a clinical look, the ECG-logo capsule takes a single-lead reading in seconds.</p>
+            <ul class="frow__list">
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Resting, walking and exercise heart-rate trends</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Heart-rate variability, a key window into recovery and stress</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Gentle notices of unusually high, low or irregular rhythms</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>ECG recordings you can store or share with a clinician</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 03 CALM -->
+        <article class="frow" id="calm">
+          <div class="frow__media reveal" data-reveal>
+            <img src="assets/images/fx-calm.jpg" alt="A person meditating in silhouette against a bright sunrise window" />
+            <span class="frow__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c-4.5-2.6-7-5.8-7-9.2A4.3 4.3 0 0 1 12 8a4.3 4.3 0 0 1 7 3.8c0 3.4-2.5 6.6-7 9.2z" fill="currentColor"/></svg> Guided calm sessions</span>
+          </div>
+          <div class="frow__copy reveal" data-reveal>
+            <span class="frow__index">03</span>
+            <p class="eyebrow"><span class="eyebrow__dot"></span> Emotional balance</p>
+            <h2 class="frow__title">Knowing when the day weighs on you.</h2>
+            <p class="frow__lede">CAERING reads the physical signature of stress — elevated resting pulse, shifting HRV, restless nights — and reflects it back without alarm.</p>
+            <ul class="frow__list">
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Daily stress-load picture tied to your own baseline</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Calm-moment detection, so you notice what helps</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Optional one- to four-minute breathing sessions in the app</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>No nudges, no streaks — only awareness</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 04 TEMPERATURE -->
+        <article class="frow frow--rev" id="temperature">
+          <div class="frow__media reveal" data-reveal>
+            <img src="assets/images/fx-temp.jpg" alt="Warm golden palm-leaf shadows falling across a sand-coloured surface" />
+            <span class="frow__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4a2 2 0 1 1 4 0v9.3a3.8 3.8 0 1 1-4 0V4z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg> Sensing to ±0.1 °C</span>
+          </div>
+          <div class="frow__copy reveal" data-reveal>
+            <span class="frow__index">04</span>
+            <p class="eyebrow"><span class="eyebrow__dot"></span> Skin temperature</p>
+            <h2 class="frow__title">The faintest shifts, made visible.</h2>
+            <p class="frow__lede">A precision thermistor tracks the tiny nightly variations in your skin temperature — among the earliest signals that your body is adapting, fighting something, or simply out of balance.</p>
+            <ul class="frow__list">
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Personal temperature baseline learned over your first nights</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Deviation trends, measured to a tenth of a degree</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Context for recovery, illness and cycle patterns</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 05 WORKOUTS -->
+        <article class="frow" id="workouts">
+          <div class="frow__media reveal" data-reveal>
+            <img src="assets/images/fx-workout.jpg" alt="A lone runner's silhouette on a wet road at dusk" />
+            <span class="frow__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3l8 4-8 4V8c-3.5.3-6 2.2-7 6 1.8-2.4 4-3.6 7-3.3V3z" fill="currentColor"/></svg> Automatic activity detection</span>
+          </div>
+          <div class="frow__copy reveal" data-reveal>
+            <span class="frow__index">05</span>
+            <p class="eyebrow"><span class="eyebrow__dot"></span> Movement & workouts</p>
+            <h2 class="frow__title">From first stride to final length.</h2>
+            <p class="frow__lede">There's nothing to press or start. CAERING recognises walks, runs, rides, swims and sessions as they happen, then summarises effort the way it actually felt.</p>
+            <ul class="frow__list">
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Automatic workout detection and activity summaries</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Heart-rate effort zones and peak cardiovascular load</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Swim-proof tracking through every length at 5 ATM</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Daily movement, steps and calorie context</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 06 RECOVERY -->
+        <article class="frow frow--rev" id="recovery">
+          <div class="frow__media reveal" data-reveal>
+            <img src="assets/images/fx-recovery.jpg" alt="A yoga silhouette stretching at sunset over still water" />
+            <span class="frow__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M5 8l7-5 7 5M5 16l7 5 7-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Readiness every morning</span>
+          </div>
+          <div class="frow__copy reveal" data-reveal>
+            <span class="frow__index">06</span>
+            <p class="eyebrow"><span class="eyebrow__dot"></span> Recovery & readiness</p>
+            <h2 class="frow__title">How full is your body today?</h2>
+            <p class="frow__lede">While you sleep, CAERING weighs last night's rest against recent effort and stress. By morning it offers a single readiness picture — honest, and entirely yours.</p>
+            <ul class="frow__list">
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Readiness score blending sleep, HRV, pulse and temperature</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Recovery balance after training, travel or late nights</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Weekly trends — spot strain long before it becomes injury</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 07 PREGNANCY -->
+        <article class="frow" id="pregnancy">
+          <div class="frow__media reveal" data-reveal>
+            <img src="assets/images/fx-pregnancy.jpg" alt="An expectant mother in a red shawl standing in a golden field at sunset" />
+            <span class="frow__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.6-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.4-7 10-7 10z" fill="currentColor"/></svg> Gentle all-round care</span>
+          </div>
+          <div class="frow__copy reveal" data-reveal>
+            <span class="frow__index">07</span>
+            <p class="eyebrow"><span class="eyebrow__dot"></span> Pregnancy & all-round care</p>
+            <h2 class="frow__title">A companion for every chapter.</h2>
+            <p class="frow__lede">Pregnancy changes the body's patterns each week. CAERING follows sleep, pulse, temperature and activity gently throughout — with context that adapts as the months pass.</p>
+            <ul class="frow__list">
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Resting-pulse and sleep trends through each trimester</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Skin-temperature variation tracked from a personal baseline</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Optional private share with a partner or clinician</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Comfort-first design at just over two grams</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 08 BATTERY -->
+        <article class="frow frow--rev" id="battery">
+          <div class="frow__media reveal" data-reveal>
+            <img src="assets/images/ring-product.jpg" alt="The CAERING ring with ECG-logo capsule resting ready on its side" />
+            <span class="frow__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h13v8H3zM18 10.5v3M3 12h12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Magnetic wireless dock</span>
+          </div>
+          <div class="frow__copy reveal" data-reveal>
+            <span class="frow__index">08</span>
+            <p class="eyebrow"><span class="eyebrow__dot"></span> Charge & battery</p>
+            <h2 class="frow__title">Power that asks for nothing.</h2>
+            <p class="frow__lede">A single charge lasts about seven days. Charging happens in the small forgotten moments — while showering, making coffee, getting dressed.</p>
+            <ul class="frow__list">
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Up to seven days between charges</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Roughly forty minutes for a complete charge</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Magnetic dock included, with braided USB-C cable</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="final">
+      <div class="final__glow" aria-hidden="true"></div>
+      <div class="container final__inner">
+        <h2 class="final__title">
+          <span class="line"><span class="line__inner">Care,</span></span>
+          <span class="line"><span class="line__inner"><em>in every signal.</em></span></span>
+        </h2>
+        <a href="index.html#reserve" class="btn btn--gold btn--xl" data-magnetic data-sound="tick">
+          <span>Reserve your CAERING</span>
+          <svg viewBox="0 0 24 24" class="ic-arrow" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <p class="final__whisper">Sleep · Pulse · Stress · Temperature</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="brand" data-magnetic>
+          <img class="brand__mark" src="assets/images/caering-mark.png" alt="" />
+          <img class="brand__word" src="assets/images/caering-word.png" alt="CAERING" />
+        </a>
+        <p class="footer__tag">We'll take care. Always.</p>
+        <div class="footer__social">
+          <a href="#" aria-label="Instagram" data-sound="soft"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="X" data-sound="soft"><svg viewBox="0 0 24 24"><path d="M4 4l7.2 9.1L4.4 20h2.5l5.4-5.8 4.6 5.8H20l-7.5-9.5L19.3 4h-2.5l-4.9 5.3L7.6 4z" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="YouTube" data-sound="soft"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10.5 9.5v5l4.5-2.5-4.5-2.5z" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="LinkedIn" data-sound="soft"><svg viewBox="0 0 24 24"><path d="M6.5 9.5V18h-3v-8.5h3zM5 3.8a1.8 1.8 0 1 1 0 3.6 1.8 1.8 0 0 1 0-3.6zM18.5 18h-3v-4.3c0-1.3-.5-2.2-1.7-2.2-.9 0-1.5.6-1.7 1.2-.1.2-.1.5-.1.9V18h-3V9.5h3v1.3c.4-.7 1.2-1.6 2.8-1.6 2 0 3.7 1.4 3.7 4.2V18z" fill="currentColor"/></svg></a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h4>Product</h4>
+        <a href="index.html#technology">Technology</a>
+        <a href="features.html">Features</a>
+        <a href="product.html">Specifications</a>
+        <a href="index.html#finishes">Finishes</a>
+        <a href="app.html">Companion app</a>
+      </div>
+      <div class="footer__col">
+        <h4>Company</h4>
+        <a href="#">Our story</a>
+        <a href="#">Care journal</a>
+        <a href="#">Press</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <a href="index.html#faq">FAQs</a>
+        <a href="#">Sizing guide</a>
+        <a href="#">Shipping</a>
+        <a href="#">Returns</a>
+      </div>
+    </div>
+    <div class="footer__base container">
+      <span>© 2026 Caering Wellness Pvt. Ltd.</span>
+      <span class="footer__quiet">Health doesn't need to shout to be powerful.</span>
+      <span>Privacy · Terms · Cookies</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js?v=20261003a" type="module"></script>
+  <script nomodule>
+    window.setTimeout(function () {
+      var p = document.getElementById('preloader');
+      if (p) p.parentNode.removeChild(p);
+      document.body.classList.add('no-module');
+    }, 2500);
+  </script>
+</body>
+</html>

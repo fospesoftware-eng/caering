@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The App — CAERING</title>
+  <meta name="description" content="The CAERING companion app turns quiet signals into calm clarity — morning readiness, trends, ECG recordings, shareable reports and family care, on iOS and Android." />
+  <meta name="theme-color" content="#f4efe6" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/style.css?v=20261003a" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='38' fill='none' stroke='%23b8893a' stroke-width='9' stroke-dasharray='182 57' transform='rotate(43 50 50)'/%3E%3Cpath d='M85 57C79.5 52.5 78 50 78 48.3 78 46.2 79.8 45 81.5 45c1.5 0 2.7.8 3.5 2.1.8-1.3 2-2.1 3.5-2.1 1.7 0 3.5 1.2 3.5 3.3 0 1.7-1.5 4.2-7 8.7z' fill='%23b8893a'/%3E%3C/svg%3E" />
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ============ PRELOADER ============ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__mark">
+      <img class="preloader__markimg" src="assets/images/caering-mark.png" alt="" width="150" height="146" />
+    </div>
+    <img class="preloader__wordimg" src="assets/images/caering-word.png" alt="CAERING" width="150" height="28" />
+  </div>
+
+  <!-- ambient background washes -->
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient__blob ambient__blob--1"></div>
+    <div class="ambient__blob ambient__blob--2"></div>
+    <div class="ambient__grain"></div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="brand" aria-label="CAERING home" data-magnetic>
+        <img class="brand__mark" src="assets/images/caering-mark.png" alt="" />
+        <img class="brand__word" src="assets/images/caering-word.png" alt="CAERING" />
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html#technology" class="nav__link">Technology</a>
+        <a href="features.html" class="nav__link">Features</a>
+        <a href="product.html" class="nav__link">Specs</a>
+        <a href="index.html#finishes" class="nav__link">Finishes</a>
+        <a href="app.html" class="nav__link" aria-current="page">The App</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="icon-btn icon-btn--tog" id="themeToggle" aria-label="Switch between light and dark theme" data-sound="tick">
+          <svg class="ic ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 2.8v2.2M12 19v2.2M2.8 12H5M19 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <svg class="ic ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.2A8.2 8.2 0 0 1 9.8 3.8 8.2 8.2 0 1 0 20.2 14.2z" fill="currentColor"/></svg>
+        </button>
+        <button class="icon-btn icon-btn--tog" id="soundToggle" aria-label="Turn interface sounds on or off" data-sound="tick">
+          <svg class="ic ic-sound-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.4L12 18.6V5.4L7.4 9.5H4z" fill="currentColor"/><path d="M15 9.2a3.8 3.8 0 0 1 0 5.6M17.4 7a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg class="ic ic-sound-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.4L12 18.6V5.4L7.4 9.5H4z" fill="currentColor"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+        <a href="index.html#reserve" class="btn btn--gold header__cta" data-magnetic data-sound="tick">
+          <span>Reserve</span>
+          <svg viewBox="0 0 24 24" class="ic-arrow" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <button class="icon-btn header__burger" id="burger" aria-label="Open menu">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="header__progress"><span id="scrollProgress"></span></div>
+  </header>
+
+  <!-- mobile nav drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <nav class="drawer__nav">
+      <a href="index.html#technology" class="drawer__link">Technology</a>
+      <a href="features.html" class="drawer__link">Features</a>
+      <a href="product.html" class="drawer__link">Specifications</a>
+      <a href="index.html#finishes" class="drawer__link">Finishes</a>
+      <a href="app.html" class="drawer__link">The App</a>
+      <a href="index.html#reserve" class="drawer__link drawer__link--cta">Reserve yours</a>
+    </nav>
+  </div>
+
+  <main id="top">
+
+    <!-- ============ PAGE HERO ============ -->
+    <section class="page-hero">
+      <div class="container">
+        <nav class="crumbs reveal" data-reveal aria-label="Breadcrumb">
+          <a href="index.html">Home</a><span>/</span>The App
+        </nav>
+        <h1 class="page-hero__title reveal" data-reveal>Clarity, <em>held in your hand.</em></h1>
+        <p class="page-hero__lede reveal" data-reveal>The CAERING companion app gathers every quiet signal into one calm picture — considered, private, and beautiful at a glance. No noise, no streak pressure, no endless feed.</p>
+        <div class="appstore-row reveal" data-reveal style="margin-top:32px">
+          <a class="storebtn" href="#" data-sound="tick">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 12.9c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.6-1.7-3.2-1.7-1.4-.1-2.6.8-3.3.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.8.8-3.5 2.1-1.5 2.6-.4 6.5 1.1 8.6.7 1 1.6 2.2 2.7 2.2 1.1 0 1.5-.7 2.8-.7s1.7.7 2.8.7c1.2 0 2-1 2.7-2.1.8-1.2 1.2-2.3 1.2-2.4-.1 0-2.3-.9-2.3-3.4z" fill="currentColor"/><path d="M14.4 6.6c.6-.7 1-1.7.9-2.7-.9 0-1.9.6-2.5 1.3-.6.6-1 1.6-.9 2.6 1 .1 2-.5 2.5-1.2z" fill="currentColor"/></svg>
+            <span class="storebtn__txt"><small>Download on the</small><b>App Store</b></span>
+          </a>
+          <a class="storebtn" href="#" data-sound="tick">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 3.1l11.4 8.9-11.4 8.9c-.3-.2-.5-.5-.5-.9V4c0-.4.2-.7.5-.9z" fill="currentColor"/><path d="M16.9 12l-1.3 1.1L4.2 3.1 16.9 12zM15.6 10.9l1.3 1.1L4.2 20.9l11.4-10z" fill="currentColor"/></svg>
+            <span class="storebtn__txt"><small>Get it on</small><b>Google Play</b></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ APP SHOWCASE ============ -->
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="appshow">
+          <div class="appshow__media reveal" data-reveal>
+            <img src="assets/images/app-screen.jpg" alt="A smartphone showing a neatly organised home screen of health apps" />
+          </div>
+          <div class="frow__copy reveal" data-reveal>
+            <p class="eyebrow"><span class="eyebrow__dot"></span> The Today view</p>
+            <h2 class="appshow__title">Your day, elegantly organised.</h2>
+            <p class="frow__lede">Open the app and the essentials are already composed for you — readiness, sleep, pulse, stress and movement, each in proportion to how much it actually matters today.</p>
+            <ul class="frow__list">
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Morning readiness before your feet touch the floor</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>An evening reflection, only when something changed</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Swipe down through days, sideways through years</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything works in dark and porcelain light</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ APP CAPABILITIES ============ -->
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="section__head section__head--center">
+          <p class="eyebrow reveal" data-reveal><span class="eyebrow__dot"></span> Inside the app</p>
+          <h2 class="h2 reveal" data-reveal>Everything, <em>nothing unnecessary.</em></h2>
+        </div>
+        <div class="apptiles reveal" data-reveal>
+          <div class="apptile">
+            <span class="apptile__ic"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <h3>Daily briefings</h3>
+            <p>A calm morning and evening summary, written for a human — never a wall of metrics.</p>
+          </div>
+          <div class="apptile">
+            <span class="apptile__ic"><svg viewBox="0 0 24 24"><path d="M4 18V9M10 18V5M16 18v-7M22 18H2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <h3>Trend explorer</h3>
+            <p>Weeks, months and years of patterns, with honest notes on what seems meaningful.</p>
+          </div>
+          <div class="apptile">
+            <span class="apptile__ic"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12h6M9 16h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+            <h3>Health reports</h3>
+            <p>Clean, dated reports for sleep, heart and recovery — exportable for appointments.</p>
+          </div>
+          <div class="apptile">
+            <span class="apptile__ic"><svg viewBox="0 0 24 24"><path d="M3 12h4l2.5 6L14 6l2 6h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h3>ECG library</h3>
+            <p>Every on-demand rhythm recording, stored privately and labelled by date.</p>
+          </div>
+          <div class="apptile">
+            <span class="apptile__ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+            <h3>Quiet modes</h3>
+            <p>Choose what notifies you — silence everything, and nothing important is lost.</p>
+          </div>
+          <div class="apptile">
+            <span class="apptile__ic"><svg viewBox="0 0 24 24"><circle cx="8.5" cy="9" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="16.5" cy="10" r="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 19c.6-2.4 2.8-4 5.5-4s4.9 1.6 5.5 4M14.6 15.6c2.1.2 3.9 1.5 4.4 3.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+            <h3>Care sharing</h3>
+            <p>Invite a partner or clinician to see chosen signals — revocable at any moment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MULTI-DEVICE WIDE CARD ============ -->
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="widecard reveal" data-reveal>
+          <img src="assets/images/app-family.jpg" alt="Several smartphones arranged on a soft blue surface, illustrating multi-device compatibility" />
+          <div class="widecard__scrim"></div>
+          <div class="widecard__copy">
+            <h3>One account, every device you trust.</h3>
+            <p>Switch phones, share a tablet, or keep a spare — your encrypted history follows you, quietly, wherever you sign in.</p>
+          </div>
+        </div>
+        <div class="compbar reveal" data-reveal" style="margin-top:28px">
+          <span>iOS 15 or later</span>
+          <span>Android 9 or later</span>
+          <span>Bluetooth 5.3</span>
+          <span>End-to-end encrypted sync</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="final">
+      <div class="final__glow" aria-hidden="true"></div>
+      <div class="container final__inner">
+        <h2 class="final__title">
+          <span class="line"><span class="line__inner">Your signals,</span></span>
+          <span class="line"><span class="line__inner"><em>beautifully understood.</em></span></span>
+        </h2>
+        <a href="index.html#reserve" class="btn btn--gold btn--xl" data-magnetic data-sound="tick">
+          <span>Reserve your CAERING</span>
+          <svg viewBox="0 0 24 24" class="ic-arrow" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <p class="final__whisper">Sleep · Pulse · Stress · Temperature</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="brand" data-magnetic>
+          <img class="brand__mark" src="assets/images/caering-mark.png" alt="" />
+          <img class="brand__word" src="assets/images/caering-word.png" alt="CAERING" />
+        </a>
+        <p class="footer__tag">We'll take care. Always.</p>
+        <div class="footer__social">
+          <a href="#" aria-label="Instagram" data-sound="soft"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="X" data-sound="soft"><svg viewBox="0 0 24 24"><path d="M4 4l7.2 9.1L4.4 20h2.5l5.4-5.8 4.6 5.8H20l-7.5-9.5L19.3 4h-2.5l-4.9 5.3L7.6 4z" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="YouTube" data-sound="soft"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10.5 9.5v5l4.5-2.5-4.5-2.5z" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="LinkedIn" data-sound="soft"><svg viewBox="0 0 24 24"><path d="M6.5 9.5V18h-3v-8.5h3zM5 3.8a1.8 1.8 0 1 1 0 3.6 1.8 1.8 0 0 1 0-3.6zM18.5 18h-3v-4.3c0-1.3-.5-2.2-1.7-2.2-.9 0-1.5.6-1.7 1.2-.1.2-.1.5-.1.9V18h-3V9.5h3v1.3c.4-.7 1.2-1.6 2.8-1.6 2 0 3.7 1.4 3.7 4.2V18z" fill="currentColor"/></svg></a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h4>Product</h4>
+        <a href="index.html#technology">Technology</a>
+        <a href="features.html">Features</a>
+        <a href="product.html">Specifications</a>
+        <a href="index.html#finishes">Finishes</a>
+        <a href="app.html">Companion app</a>
+      </div>
+      <div class="footer__col">
+        <h4>Company</h4>
+        <a href="#">Our story</a>
+        <a href="#">Care journal</a>
+        <a href="#">Press</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <a href="index.html#faq">FAQs</a>
+        <a href="#">Sizing guide</a>
+        <a href="#">Shipping</a>
+        <a href="#">Returns</a>
+      </div>
+    </div>
+    <div class="footer__base container">
+      <span>© 2026 Caering Wellness Pvt. Ltd.</span>
+      <span class="footer__quiet">Health doesn't need to shout to be powerful.</span>
+      <span>Privacy · Terms · Cookies</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js?v=20261003a" type="module"></script>
+  <script nomodule>
+    window.setTimeout(function () {
+      var p = document.getElementById('preloader');
+      if (p) p.parentNode.removeChild(p);
+      document.body.classList.add('no-module');
+    }, 2500);
+  </script>
+</body>
+</html>

@@ -166,7 +166,7 @@ initViewers();
 /* hero mouse parallax */
 if (!prefersReduced) {
   const hero = $('.hero');
-  hero.addEventListener('mousemove', (e) => {
+  if (hero) hero.addEventListener('mousemove', (e) => {
     const nx = (e.clientX / innerWidth) * 2 - 1;
     const ny = (e.clientY / innerHeight) * 2 - 1;
     heroViewer?.setParallax(nx, ny);
@@ -293,6 +293,7 @@ let cw = 0, chh = 0;
 
 function setupChartSizes() {
   const first = chartCanvas.sleep;
+  if (!first || !first.parentElement) return; // no charts on this page
   const rect = first.parentElement.getBoundingClientRect();
   if (rect.width < 4 || rect.height < 4) return; // hidden panels
   cw = rect.width - 28; chh = rect.height - 28; // inset 14 each side
@@ -586,10 +587,13 @@ function chartLoop(now) {
 
 setupChartSizes();
 chartState.sleep = 0;
-new ResizeObserver(() => {
-  setupChartSizes();
-  if (activeChart !== 'sleep') chartState.sleep = 1;
-}).observe($('.pillars'));
+const pillarsEl = $('.pillars');
+if (pillarsEl) {
+  new ResizeObserver(() => {
+    setupChartSizes();
+    if (activeChart !== 'sleep') chartState.sleep = 1;
+  }).observe(pillarsEl);
+}
 requestAnimationFrame(chartLoop);
 
 /* =============================================================
@@ -635,17 +639,17 @@ if (modal) {
 /* =============================================================
    14. RESERVE FORM
    ============================================================= */
-$('#reserveForm').addEventListener('submit', (e) => {
+$('#reserveForm')?.addEventListener('submit', (e) => {
   e.preventDefault();
   e.target.style.display = 'none';
-  $('#reserveDone').classList.add('is-visible');
+  $('#reserveDone')?.classList.add('is-visible');
 });
 
 /* =============================================================
    15. FINAL TITLE REVEAL
    ============================================================= */
 const finalTitle = $('.final__title');
-new IntersectionObserver((entries) => {
+if (finalTitle) new IntersectionObserver((entries) => {
   entries.forEach((en) => {
     if (en.isIntersecting) { finalTitle.classList.add('is-visible'); }
   });
