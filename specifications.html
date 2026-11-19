@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AC12 Series Specifications — CAERING</title>
+  <meta name="description" content="The complete CAERING AC12 Series specification: ceramic and anti-bacterial stainless steel construction, 5ATM water resistance, multi-direction touch control, PPG, temperature and G-sensors, 4–6 day battery life and BLE 5.4." />
+  <meta name="theme-color" content="#f4efe6" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/style.css?v=20261119a" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='38' fill='none' stroke='%23b8893a' stroke-width='9' stroke-dasharray='182 57' transform='rotate(43 50 50)'/%3E%3Cpath d='M85 57C79.5 52.5 78 50 78 48.3 78 46.2 79.8 45 81.5 45c1.5 0 2.7.8 3.5 2.1.8-1.3 2-2.1 3.5-2.1 1.7 0 3.5 1.2 3.5 3.3 0 1.7-1.5 4.2-7 8.7z' fill='%23b8893a'/%3E%3C/svg%3E" />
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ============ PRELOADER ============ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__mark">
+      <img class="preloader__markimg" src="assets/images/caering-mark.png" alt="" width="150" height="146" />
+    </div>
+    <img class="preloader__wordimg" src="assets/images/caering-word.png" alt="CAERING" width="150" height="28" />
+  </div>
+
+  <!-- ambient background washes -->
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient__blob ambient__blob--1"></div>
+    <div class="ambient__blob ambient__blob--2"></div>
+    <div class="ambient__grain"></div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="brand" aria-label="CAERING home" data-magnetic>
+        <img class="brand__mark" src="assets/images/caering-mark.png" alt="" />
+        <img class="brand__word" src="assets/images/caering-word.png" alt="CAERING" />
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html#technology" class="nav__link">Technology</a>
+        <a href="features.html" class="nav__link">Features</a>
+        <a href="specifications.html" class="nav__link" aria-current="page">Specs</a>
+        <a href="index.html#finishes" class="nav__link">Finishes</a>
+        <a href="app.html" class="nav__link">The App</a>
+      </nav>
+
+      <div class="header__actions">
+        <a href="index.html#reserve" class="btn btn--gold header__cta" data-magnetic data-sound="tick">
+          <span>Reserve</span>
+          <svg viewBox="0 0 24 24" class="ic-arrow" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <button class="icon-btn header__burger" id="burger" aria-label="Open menu">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="header__progress"><span id="scrollProgress"></span></div>
+  </header>
+
+  <!-- mobile nav drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <nav class="drawer__nav">
+      <a href="index.html#technology" class="drawer__link">Technology</a>
+      <a href="features.html" class="drawer__link">Features</a>
+      <a href="specifications.html" class="drawer__link" aria-current="page">Specifications</a>
+      <a href="index.html#finishes" class="drawer__link">Finishes</a>
+      <a href="app.html" class="drawer__link">The App</a>
+      <a href="index.html#reserve" class="drawer__link drawer__link--cta">Reserve yours</a>
+    </nav>
+  </div>
+
+  <main id="top">
+
+    <!-- ============ PAGE HERO ============ -->
+    <section class="page-hero">
+      <div class="container">
+        <nav class="crumbs reveal" data-reveal aria-label="Breadcrumb">
+          <a href="index.html">Home</a><span>/</span>Specifications
+        </nav>
+        <h1 class="page-hero__title reveal" data-reveal>Every detail,<br /><em>on the record.</em></h1>
+        <p class="page-hero__lede reveal" data-reveal>The complete specification of the CAERING AC12 Series — a health smart ring in ceramic and anti-bacterial stainless steel. Every label and value below is taken directly from the product specification.</p>
+        <div class="signaljump reveal" data-reveal>
+          <a href="#mechanical">Mechanical</a>
+          <a href="#hardware">Hardware</a>
+          <a href="#power">Power</a>
+          <a href="#app">App</a>
+          <a href="#functions">Functions</a>
+          <a href="#health">Health</a>
+          <a href="#environment">Environment</a>
+          <a href="#standards">Standards</a>
+        </div>
+        <div class="page-hero__actions reveal" data-reveal>
+          <a href="index.html#reserve" class="btn btn--gold btn--lg" data-magnetic data-sound="tick"><span>Reserve yours</span></a>
+          <a href="features.html" class="btn btn--ghost btn--lg" data-magnetic data-sound="tick"><span>Explore features</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ QUICK FACTS ============ -->
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="keystrip reveal" data-reveal>
+          <div class="keystrip__cell"><b>5ATM</b><span>waterproof</span></div>
+          <div class="keystrip__cell"><b>5.2 g</b><span>weight</span></div>
+          <div class="keystrip__cell"><b>4–6 days</b><span>battery life</span></div>
+          <div class="keystrip__cell"><b>BLE 5.4</b><span>bluetooth</span></div>
+          <div class="keystrip__cell"><b>8</b><span>ring sizes, #6–#13</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DESIGN & MATERIALS ============ -->
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="frow">
+          <div class="frow__media frow__media--plate reveal" data-reveal>
+            <img src="assets/images/ac12-midnight.png" alt="The CAERING AC12 Series smart ring in a black ceramic finish with a stainless steel inner ring" />
+            <span class="frow__chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/></svg> Ceramics + stainless steel</span>
+          </div>
+          <div class="frow__copy reveal" data-reveal>
+            <p class="eyebrow"><span class="eyebrow__dot"></span> Product description</p>
+            <h2 class="frow__title">Elegant fashion design, worn on the finger.</h2>
+            <p class="frow__lede">Ceramics and anti-bacterial stainless steel meet in a ring that is stylish, built on cutting-edge technology and comfortable enough to forget. Inside, it works quietly around the clock.</p>
+            <ul class="frow__list">
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Category — health smart ring</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>7.5 mm wide, 2.5 mm thick, 5.2 g</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Eight sizes, from #6 to #13</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>5ATM waterproof</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINISHES ============ -->
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="section__head section__head--center">
+          <p class="eyebrow reveal" data-reveal><span class="eyebrow__dot"></span> Finishes</p>
+          <h2 class="h2 reveal" data-reveal>One shape, <em>four moods.</em></h2>
+        </div>
+        <div class="ringpalette reveal" data-reveal>
+          <div class="ringcard">
+            <img src="assets/images/ac12-midnight.png" alt="AC12 Series ring in black ceramic" loading="lazy" />
+            <b>Midnight</b>
+            <span>Black ceramic</span>
+          </div>
+          <div class="ringcard">
+            <img src="assets/images/ac12-pearl.png" alt="AC12 Series ring in pearl white ceramic" loading="lazy" />
+            <b>Pearl</b>
+            <span>Ivory ceramic</span>
+          </div>
+          <div class="ringcard">
+            <img src="assets/images/ac12-blush.png" alt="AC12 Series ring in blush pink ceramic" loading="lazy" />
+            <b>Blush</b>
+            <span>Rose ceramic</span>
+          </div>
+          <div class="ringcard">
+            <img src="assets/images/ac12-lilac.png" alt="AC12 Series ring in lilac ceramic" loading="lazy" />
+            <b>Lilac</b>
+            <span>Violet ceramic</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SPOTLIGHT ============ -->
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="section__head section__head--center">
+          <p class="eyebrow reveal" data-reveal><span class="eyebrow__dot"></span> Spotlight</p>
+          <h2 class="h2 reveal" data-reveal>What the ring <em>does quietly.</em></h2>
+        </div>
+        <div class="spotlight reveal" data-reveal>
+          <article class="spotcard">
+            <span class="spotcard__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></span>
+            <div>
+              <h3>Elegant fashion design on the finger</h3>
+              <p>Ceramics + anti-bacterial stainless steel — stylish, cutting-edge technology, comfortable to wear.</p>
+            </div>
+          </article>
+          <article class="spotcard">
+            <span class="spotcard__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2.5 6L14 6l2 6h5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div>
+              <h3>Health management</h3>
+              <p>7 × 24 hrs health monitoring, sleep management and sleep-quality assessment, daily sport and fitness analysis.</p>
+            </div>
+          </article>
+          <article class="spotcard">
+            <span class="spotcard__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10 18h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 7c-.8 1-.8 2 0 3M20 7c.8 1 .8 2 0 3M2 5c-1.4 1.7-1.4 3.3 0 5M22 5c1.4 1.7 1.4 3.3 0 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+            <div>
+              <h3>Vibration alerts</h3>
+              <p>Incoming-call vibration alert, abnormal health indicator alerts, clock reminder, medication reminder, daily event reminders, etc.</p>
+            </div>
+          </article>
+          <article class="spotcard">
+            <span class="spotcard__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l12 8-12 8V4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+            <div>
+              <h3>Smart leisure life</h3>
+              <p>Touch to control third-party apps — short video, music player, e-book, photos — or smart hardware.</p>
+              <p>SOS function for a quick, timely response.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FULL SPECIFICATION SHEET ============ -->
+    <section class="section" style="padding-top:0" id="sheet">
+      <div class="container">
+        <div class="section__head section__head--center">
+          <p class="eyebrow reveal" data-reveal><span class="eyebrow__dot"></span> AC12 Series</p>
+          <h2 class="h2 reveal" data-reveal>The complete <em>specification.</em></h2>
+        </div>
+
+        <dl class="spectable">
+
+          <div class="spectable__group" id="overview">
+            <p class="spectable__label">Product description</p>
+            <div class="spectable__row"><dt>Model</dt><dd>AC12</dd></div>
+            <div class="spectable__row"><dt>Category</dt><dd>Health Smart Ring</dd></div>
+          </div>
+
+          <div class="spectable__group" id="mechanical">
+            <p class="spectable__label">Mechanical specifications</p>
+            <div class="spectable__row"><dt>Waterproof</dt><dd>5ATM</dd></div>
+            <div class="spectable__row"><dt>Outer ring</dt><dd>Ceramics</dd></div>
+            <div class="spectable__row"><dt>Inner ring</dt><dd>Stainless steel</dd></div>
+            <div class="spectable__row"><dt>Ring sizes</dt><dd>
+              <span class="tagchip">#6</span><span class="tagchip">#7</span><span class="tagchip">#8</span><span class="tagchip">#9</span><span class="tagchip">#10</span><span class="tagchip">#11</span><span class="tagchip">#12</span><span class="tagchip">#13</span>
+              <span class="specnote">8 sizes available</span>
+            </dd></div>
+            <div class="spectable__row"><dt>Product dimensions</dt><dd>7.5 mm × 2.5 mm<span class="specnote">Width × thickness</span></dd></div>
+            <div class="spectable__row"><dt>Package dimensions</dt><dd>TBD</dd></div>
+            <div class="spectable__row"><dt>Weight</dt><dd>5.2 g<span class="specnote">Different weight in different size</span></dd></div>
+          </div>
+
+          <div class="spectable__group" id="hardware">
+            <p class="spectable__label">Hardware specifications</p>
+            <div class="spectable__row"><dt>CPU</dt><dd>AB2026B3</dd></div>
+            <div class="spectable__row"><dt>Motor</dt><dd>Ultra low power motor<span class="specnote">Support</span></dd></div>
+            <div class="spectable__row"><dt>Touch</dt><dd>Multi-direction touch control<span class="specnote">Support</span></dd></div>
+            <div class="spectable__row"><dt>PPG sensor</dt><dd>HX3917<span class="specnote">Optional, LC12S</span></dd></div>
+            <div class="spectable__row"><dt>Body temperature sensor</dt><dd>CT7112<span class="specnote">Support</span></dd></div>
+            <div class="spectable__row"><dt>G-sensor</dt><dd>BMA510<span class="specnote">Support</span></dd></div>
+            <div class="spectable__row"><dt>Memory</dt><dd>Storage — one week of data on the ring</dd></div>
+            <div class="spectable__row"><dt>Bluetooth</dt><dd>BLE5.4</dd></div>
+          </div>
+
+          <div class="spectable__group" id="power">
+            <p class="spectable__label">Power specifications</p>
+            <div class="spectable__row"><dt>Duration battery life</dt><dd>4–6 days<span class="specnote">Under the typical battery-life model, 24 hrs of wear per day</span></dd></div>
+            <div class="spectable__row"><dt>Standby time</dt><dd>25 days</dd></div>
+            <div class="spectable__row"><dt>Battery capacity</dt><dd>18.5 mAh<span class="specnote">High density battery</span></dd></div>
+            <div class="spectable__row"><dt>Battery type</dt><dd>Lithium Polymer</dd></div>
+            <div class="spectable__row"><dt>Charger connector</dt><dd>Magnetic contact charging</dd></div>
+            <div class="spectable__row"><dt>Recharging time</dt><dd>&lt;1.5 hours</dd></div>
+          </div>
+
+          <div class="spectable__group" id="app">
+            <p class="spectable__label">App</p>
+            <div class="spectable__row"><dt>App</dt><dd>Caering Ring<span class="specnote">Download via the App Store or Google Play Store</span></dd></div>
+            <div class="spectable__row"><dt>Mobile phone OS</dt><dd>Android 7.0+, iOS 13.0+, HarmonyOS 2.0+</dd></div>
+            <div class="spectable__row"><dt>Language</dt><dd>App supports 30+ languages</dd></div>
+            <div class="spectable__row"><dt>App download</dt><dd>
+              <span class="tagchip">App Store</span><span class="tagchip">Google Play Store</span>
+            </dd></div>
+          </div>
+
+          <div class="spectable__group" id="functions">
+            <p class="spectable__label">Motor vibration</p>
+            <div class="spectable__row"><dt>Incoming call vibration alerts</dt><dd>Support — the ring auto-vibrates when you receive an incoming call</dd></div>
+            <div class="spectable__row"><dt>Message notification</dt><dd>Support — auto-vibration when a message is received from WhatsApp, Facebook, Instagram, WeChat, SMS, QQ, etc., or a custom list</dd></div>
+            <div class="spectable__row"><dt>Abnormal health vibration alerts</dt><dd>Support — higher heart rate, lower heart rate, lower SpO₂, fever, higher stress</dd></div>
+            <div class="spectable__row"><dt>Clock reminder</dt><dd>Support — the ring vibrates to remind you when the alarm time is up</dd></div>
+            <div class="spectable__row"><dt>Daily events reminder</dt><dd>Support — reminders to take medicine, drink water, birthdays, anniversaries, schedules, etc.</dd></div>
+          </div>
+
+          <div class="spectable__group">
+            <p class="spectable__label">Touch control function</p>
+            <div class="spectable__row"><dt>Remote photo</dt><dd>Support</dd></div>
+            <div class="spectable__row"><dt>Remote video</dt><dd>Support</dd></div>
+            <div class="spectable__row"><dt>PowerPoint</dt><dd>Switch, slide</dd></div>
+            <div class="spectable__row"><dt>E-book</dt><dd>Page turning</dd></div>
+            <div class="spectable__row"><dt>SOS function</dt><dd>Quickly triggered, timely rescue<span class="specnote">Support touch trigger and gesture trigger; send an SOS SMS and location, and dial emergency contacts</span></dd></div>
+          </div>
+
+          <div class="spectable__group" id="health">
+            <p class="spectable__label">Health management</p>
+            <div class="spectable__row"><dt>Sleep management</dt><dd>Tracking sleep status, sleep-quality assessment and score, sleep-quality trend analysis</dd></div>
+            <div class="spectable__row"><dt>Body temperature</dt><dd>Support</dd></div>
+            <div class="spectable__row"><dt>Heart rate</dt><dd>Support</dd></div>
+            <div class="spectable__row"><dt>SpO₂</dt><dd>Support</dd></div>
+            <div class="spectable__row"><dt>HRV</dt><dd>Support</dd></div>
+            <div class="spectable__row"><dt>Blood glucose trends</dt><dd>Optional — non-invasive blood glucose measurement. Diabetes risk assessment, glucose trend analysis and report</dd></div>
+            <div class="spectable__row"><dt>Emotional management</dt><dd>Optional — emotional report, mood distribution, stress index, fatigue index, etc.</dd></div>
+            <div class="spectable__row"><dt>Health report</dt><dd>Support</dd></div>
+            <div class="spectable__row"><dt>Menstrual cycle prediction</dt><dd>Support</dd></div>
+          </div>
+
+          <div class="spectable__group">
+            <p class="spectable__label">Activity monitoring</p>
+            <div class="spectable__row"><dt>Daily fitness and sport</dt><dd>Support</dd></div>
+            <div class="spectable__row"><dt>Pedometer</dt><dd>Support</dd></div>
+            <div class="spectable__row"><dt>Distance</dt><dd>Support</dd></div>
+            <div class="spectable__row"><dt>Calorie</dt><dd>Support</dd></div>
+            <div class="spectable__row"><dt>Sport</dt><dd>Walking, running, riding</dd></div>
+            <div class="spectable__row"><dt>Sport data synchronisation</dt><dd>Synced to Google Health Connect and Apple Health</dd></div>
+          </div>
+
+          <div class="spectable__group">
+            <p class="spectable__label">Other functions</p>
+            <div class="spectable__row"><dt>Firmware upgrade</dt><dd>OTA upgrade<span class="specnote">Via the mobile app</span></dd></div>
+            <div class="spectable__row"><dt>Restore factory default</dt><dd>Support</dd></div>
+            <div class="spectable__row"><dt>Wear detection</dt><dd>Support</dd></div>
+            <div class="spectable__row"><dt>Restart</dt><dd>Support</dd></div>
+            <div class="spectable__row"><dt>Firmware information</dt><dd>Support</dd></div>
+          </div>
+
+          <div class="spectable__group" id="environment">
+            <p class="spectable__label">Environment</p>
+            <div class="spectable__row"><dt>Operating temperature</dt><dd>−20 ℃ to 50 ℃</dd></div>
+            <div class="spectable__row"><dt>Charging temperature</dt><dd>0 ℃ to 40 ℃</dd></div>
+            <div class="spectable__row"><dt>Working humidity</dt><dd>10%–90% RH (non-condensation)</dd></div>
+            <div class="spectable__row"><dt>Storage temperature</dt><dd>−30 ℃ to 70 ℃</dd></div>
+            <div class="spectable__row"><dt>Storage humidity</dt><dd>5%–90% RH (non-condensation)</dd></div>
+          </div>
+
+          <div class="spectable__group" id="standards">
+            <p class="spectable__label">Standards</p>
+            <div class="spectable__row"><dt>Certificates</dt><dd>
+              <span class="tagchip">FCC</span><span class="tagchip">CE</span><span class="tagchip">ROHS</span><span class="tagchip">REACH</span><span class="tagchip">CCC</span><span class="tagchip">SRRC</span><span class="tagchip">MSDS</span><span class="tagchip">UN38.3</span>
+              <span class="specnote">Support</span>
+            </dd></div>
+          </div>
+
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============ APP ============ -->
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="appshow">
+          <div class="appshow__media reveal" data-reveal>
+            <img src="assets/images/app-family.jpg" alt="The CAERING app shown across a family of devices" />
+          </div>
+          <div class="frow__copy reveal" data-reveal>
+            <p class="eyebrow"><span class="eyebrow__dot"></span> Caering Ring app</p>
+            <h2 class="appshow__title">Everything the ring senses, gently gathered.</h2>
+            <p class="frow__lede">The Caering Ring app brings your readings together and keeps them in one calm place. It speaks 30+ languages and works across Android 7.0+, iOS 13.0+ and HarmonyOS 2.0+.</p>
+            <ul class="frow__list">
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Sleep, heart rate, SpO₂, HRV and temperature in one view</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Activity, distance, calorie and sport summaries</li>
+              <li><span class="frow__tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Notifications, reminders and health reports, tuned by you</li>
+            </ul>
+            <div class="appstore-row">
+              <a class="storebtn" href="#" data-sound="tick">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 12.9c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.6-1.7-3.2-1.7-1.4-.1-2.6.8-3.3.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.8.8-3.5 2.1-1.5 2.6-.4 6.5 1.1 8.6.7 1 1.6 2.2 2.7 2.2 1.1 0 1.5-.7 2.8-.7s1.7.7 2.8.7c1.2 0 2-1 2.7-2.1.8-1.2 1.2-2.3 1.2-2.4-.1 0-2.3-.9-2.3-3.4z" fill="currentColor"/><path d="M14.4 6.6c.6-.7 1-1.7.9-2.7-.9 0-1.9.6-2.5 1.3-.6.6-1 1.6-.9 2.6 1 .1 2-.5 2.5-1.2z" fill="currentColor"/></svg>
+                <span class="storebtn__txt"><small>Download on the</small><b>App Store</b></span>
+              </a>
+              <a class="storebtn" href="#" data-sound="tick">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 3.1l11.4 8.9-11.4 8.9c-.3-.2-.5-.5-.5-.9V4c0-.4.2-.7.5-.9z" fill="currentColor"/><path d="M16.9 12l-1.3 1.1L4.2 3.1 16.9 12zM15.6 10.9l1.3 1.1L4.2 20.9l11.4-10z" fill="currentColor"/></svg>
+                <span class="storebtn__txt"><small>Get it on</small><b>Google Play</b></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="final">
+      <div class="final__glow" aria-hidden="true"></div>
+      <div class="container final__inner">
+        <h2 class="final__title">
+          <span class="line"><span class="line__inner">Precision,</span></span>
+          <span class="line"><span class="line__inner"><em>delivered quietly.</em></span></span>
+        </h2>
+        <a href="index.html#reserve" class="btn btn--gold btn--xl" data-magnetic data-sound="tick">
+          <span>Reserve your CAERING</span>
+          <svg viewBox="0 0 24 24" class="ic-arrow" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <p class="final__whisper">Sleep · Pulse · Stress · Temperature</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="brand" data-magnetic>
+          <img class="brand__mark" src="assets/images/caering-mark.png" alt="" />
+          <img class="brand__word" src="assets/images/caering-word.png" alt="CAERING" />
+        </a>
+        <p class="footer__tag">We'll take care. Always.</p>
+        <div class="footer__social">
+          <a href="#" aria-label="Instagram" data-sound="soft"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="X" data-sound="soft"><svg viewBox="0 0 24 24"><path d="M4 4l7.2 9.1L4.4 20h2.5l5.4-5.8 4.6 5.8H20l-7.5-9.5L19.3 4h-2.5l-4.9 5.3L7.6 4z" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="YouTube" data-sound="soft"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10.5 9.5v5l4.5-2.5-4.5-2.5z" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="LinkedIn" data-sound="soft"><svg viewBox="0 0 24 24"><path d="M6.5 9.5V18h-3v-8.5h3zM5 3.8a1.8 1.8 0 1 1 0 3.6 1.8 1.8 0 0 1 0-3.6zM18.5 18h-3v-4.3c0-1.3-.5-2.2-1.7-2.2-.9 0-1.5.6-1.7 1.2-.1.2-.1.5-.1.9V18h-3V9.5h3v1.3c.4-.7 1.2-1.6 2.8-1.6 2 0 3.7 1.4 3.7 4.2V18z" fill="currentColor"/></svg></a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h4>Product</h4>
+        <a href="index.html#technology">Technology</a>
+        <a href="features.html">Features</a>
+        <a href="specifications.html">Specifications</a>
+        <a href="product.html">CAERING One</a>
+        <a href="index.html#finishes">Finishes</a>
+        <a href="app.html">Companion app</a>
+      </div>
+      <div class="footer__col">
+        <h4>Company</h4>
+        <a href="#">Our story</a>
+        <a href="#">Care journal</a>
+        <a href="#">Press</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <a href="index.html#faq">FAQs</a>
+        <a href="#">Sizing guide</a>
+        <a href="#">Shipping</a>
+        <a href="#">Returns</a>
+      </div>
+    </div>
+    <div class="footer__base container">
+      <span>© 2026 Caering Wellness Pvt. Ltd.</span>
+      <span class="footer__quiet">Health doesn't need to shout to be powerful.</span>
+      <span>Privacy · Terms · Cookies</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js?v=20261119a" type="module"></script>
+  <script nomodule>
+    window.setTimeout(function () {
+      var p = document.getElementById('preloader');
+      if (p) p.parentNode.removeChild(p);
+      document.body.classList.add('no-module');
+    }, 2500);
+  </script>
+</body>
+</html>
